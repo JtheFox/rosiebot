@@ -44,6 +44,6 @@ module.exports = async (client, message) => {
   }
 
   // Run the command
-  logger.cmd(`${message.author.username} (${message.author.id}) ran command ${cmd.config.name}${message.guild ? `in ${message.guild.name} (${message.guild.id})` : ''}`);
+  logger.cmd(`${message.author.username} (${message.author.id}) ran command ${cmd.config.name}${message.guild ? ` in ${message.guild.name} (${message.guild.id})` : ''}`);
   cmd.run(client, message, args);
 };
