@@ -10,7 +10,7 @@ exports.run = async (client, message, args) => {
     .setTitle(randChamp.name)
     .setDescription(randChamp.title.charAt(0).toUpperCase() + randChamp.title.slice(1))
     .setThumbnail(`http://ddragon.leagueoflegends.com/cdn/${randChamp.version}/img/champion/${randChamp.id}.png`);
-  message.reply({ embeds: [champEmbed] })
+  message.channel.send({ embeds: [champEmbed] })
 };
 
 exports.config = {
