@@ -23,7 +23,7 @@ module.exports = async (client, message) => {
   const command = args.shift().toLowerCase();
 
   // Check if command exists
-  const cmd = container.commands.get(command) || container.commands.get(client.aliases.get(command));
+  const cmd = container.commands.get(command) || container.commands.get(container.aliases.get(command));
   if (!cmd) return;
 
   // Fetch non-cached/invisible guild members
