@@ -6,7 +6,7 @@ const config = {
   partials: [Partials.Channel],
   defaultSettings: {
     guildId: 'default',
-    prefix: '.',
+    prefix: '.rosie ',
     embedColor: '#96baff',
   },
   permLevels: [
