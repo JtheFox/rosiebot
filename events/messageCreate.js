@@ -1,4 +1,4 @@
-const logger = require('../utils/logger');
+const logger = require('../utils/logger.js');
 const { getSettings } = require('../utils/helpers.js');
 const { embedColor, permLevels } = require('../config.js');
 // On message received

@@ -1,4 +1,4 @@
-const logger = require('./logger.js');
+const logger = require('../utils/logger.js');
 const { Guild } = require('./models.js');
 const config = require('../config.js');
 
