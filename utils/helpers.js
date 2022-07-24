@@ -32,5 +32,7 @@ module.exports = {
       logger.error(err);
       return false;
     }
-  }
+  },
+  // Get random element from array
+  arrayRandom: (arr) => arr[Math.floor(Math.random() * arr.length)],
 }
