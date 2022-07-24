@@ -1,6 +1,6 @@
 const logger = require('../utils/logger');
 const { getSettings } = require('../utils/helpers.js');
-const { permLevels } = require('../config.js');
+const { embedColor, permLevels } = require('../config.js');
 // On message received
 module.exports = async (client, message) => {
   const { container } = client;
@@ -9,6 +9,7 @@ module.exports = async (client, message) => {
 
   // Get settings for prefix
   message.settings = await getSettings(message.guild);
+  message.settings.embedColor = embedColor;
   
   // Reply with prefix if bot was mentioned
   const prefixMention = new RegExp(`^<@!?${client.user.id}> ?$`);
