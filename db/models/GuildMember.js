@@ -1,6 +1,4 @@
-const { CHAR } = require('sequelize');
-const { Model, DataTypes } = require('sequelize');
-const { GuildMember } = require('.');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../connection');
 
 const GuildMember = sequelize.define('GuildMember', {

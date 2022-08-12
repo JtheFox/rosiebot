@@ -1,5 +1,5 @@
 const logger = require('../utils/logger.js');
-const { Guild } = require('../db/models.js');
+const { Guild } = require('../db/models');
 const config = require('../config.js');
 
 // Catch and format logging of unhandled exceptions and rejections

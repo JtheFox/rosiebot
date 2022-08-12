@@ -1,4 +1,3 @@
-const db = require('./connection.js');
 const { Guild, User, GuildMember } = require('../models');
 const logger = require('../utils/logger.js');
 
