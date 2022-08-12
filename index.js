@@ -60,6 +60,14 @@ const init = async () => {
     client.on(eventName, event.bind(null, client));
   });
 
+  try {
+    await sequelize.authenticate();
+    logger.ready('Connection has been established successfully.');
+  } catch (error) {
+    logger.error(['Unable to connect to the database:', error]);
+    process.exit(1);
+  }
+
   // Login the client after connection to db
   sequelize.sync({ force: false }).then(() => {
     client.login(process.env.BOT_TOKEN,);

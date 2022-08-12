@@ -11,10 +11,11 @@ const prefix = {
 }
 
 exports.log = (msg, type = 'log') => {
-  type = type.toLowerCase();
-  // Throw error if an invalid log type is used
-  if (!prefix[type]) throw new TypeError();
+   // Throw error if an invalid log type is used
+  const err = new TypeError('Invalid log type used');
+  if (typeof type !== 'string' || !prefix[type]) throw err
   // Console log as Timestamp Prefix Message
+  type = type.toLowerCase();
   return console.log(moment().format('MM/DD/YY HH:mm:ss'), prefix[type], msg);
 }
 
