@@ -2,18 +2,17 @@
 const logger = require('../utils/logger');
 const { Guild } = require('../utils/models.js');
 const { defaultSettings } = require('../config.js');
-const { getSettings } = require('../utils/helpers.js');
 // On client ready
 module.exports = async client => {
   // Ensure default settings exist and update if modified since last start
   try {
     logger.log('Ensuring default settings');
-    await Guild.updateOne({ guildId: 'default' }, defaultSettings, { new: true, runValidators: true });
-    const def = await getSettings();
-    if (!def) {
-      logger.warn('No default found, creating...');
-      await Guild.create({ guildId: 'default', prefix: '.' });
-    }
+    const [def, created] = await Guild.upsert({
+      guildId: 'default',
+      ...defaultSettings
+    });
+    if (!def) throw new Error('Operation failed');
+    created ? logger.log('Default settings created') : logger.log('Default settings found');
   } catch (err) {
     logger.error(err)
     logger.error('Encountered an error while ensuring defaults, exiting process');
