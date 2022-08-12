@@ -7,9 +7,8 @@ module.exports = async (client, message) => {
   // Ignore bots
   if (message.author.bot) return;
 
-  // Get settings for prefix
-  message.settings = await getSettings(message.guild);
-  message.settings.embedColor = embedColor;
+  // Get prefix/embed settings
+  message.settings = message.guild ? await getSettings(message.guild) : await getSettings();
   
   // Reply with prefix if bot was mentioned
   const prefixMention = new RegExp(`^<@!?${client.user.id}> ?$`);

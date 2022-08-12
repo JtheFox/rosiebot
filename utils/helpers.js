@@ -1,5 +1,5 @@
 const logger = require('../utils/logger.js');
-const { Guild } = require('./models.js');
+const { Guild } = require('../db/models');
 const config = require('../config.js');
 
 // Catch and format logging of unhandled exceptions and rejections
@@ -16,9 +16,10 @@ process.on('unhandledRejection', err => {
 module.exports = {
   // Get default or guild settings
   getSettings: async (guild) => {
+    const options = { raw: true, nest: true };
     let settings;
-    if (guild) settings = await Guild.findOne({ guildId: guild.id });
-    if (!guild || !settings) settings = await Guild.findOne({ guildId: 'default' });
+    if (guild) settings = await Guild.findByPk(guild.id, options);
+    if (!guild || !settings) settings = await Guild.findByPk('default', options);
     return settings;
   },
   // Grab a single reply with 1 minute timeout

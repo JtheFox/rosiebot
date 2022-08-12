@@ -3,8 +3,8 @@ require('dotenv').config();
 const { Client, Collection } = require('discord.js');
 const { readdir } = require('fs').promises;
 const logger = require('./utils/logger.js');
-const { token, intents, partials, permLevels } = require('./config.js');
-const db = require('./utils/connection.js');
+const { intents, partials, permLevels } = require('./config.js');
+const sequelize = require('./db/connection.js');
 
 // Instantiate client
 const client = new Client({ intents, partials });
@@ -60,8 +60,16 @@ const init = async () => {
     client.on(eventName, event.bind(null, client));
   });
 
+  try {
+    await sequelize.authenticate();
+    logger.ready('Connection has been established successfully.');
+  } catch (error) {
+    logger.error(['Unable to connect to the database:', error]);
+    process.exit(1);
+  }
+
   // Login the client after connection to db
-  db.once('open', () => {
+  sequelize.sync({ force: false }).then(() => {
     client.login(process.env.BOT_TOKEN,);
   });
 }
