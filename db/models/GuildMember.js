@@ -3,33 +3,18 @@ const sequelize = require('../connection');
 
 const GuildMember = sequelize.define('GuildMember', {
   id: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    primaryKey: true
-  },
-  guildId: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    references: {
-      model: 'Guild',
-      key: 'guildId'
-    }
-  },
-  userId: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    references: {
-      model: 'User',
-      key: 'userId'
-    }
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+    allowNull: false
   },
   betWins: {
     type: DataTypes.INTEGER,
-    defaultValue: 0
+    defaultValue: 0,
   },
   betLosses: {
     type: DataTypes.INTEGER,
-    defaultValue: 0
+    defaultValue: 0,
   }
 });
 

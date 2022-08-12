@@ -1,6 +1,34 @@
 const { Guild, User, GuildMember } = require('../models');
 const logger = require('../utils/logger.js');
 
+const ensureUser = async (userId) => {
+  try {
+    const [user, created] = await User.findOrCreate({
+      userId: userId
+    });
+    if (!user) throw new Error('Operation failed');
+    created ? logger.log('User created') : logger.log('User found');
+    return user;
+  } catch (err) {
+    logger.error(err);
+    return err;
+  }
+}
+
+const ensureGuild = async (guildId) => {
+  try {
+    const [guild, created] = await Guild.findOrCreate({
+      guildId: guildId
+    });
+    if (!guild) throw new Error('Operation failed');
+    created ? logger.log('Guild created') : logger.log('Guild found');
+    return guild;
+  } catch (err) {
+    logger.error(err);
+    return err;
+  }
+}
+
 module.exports = {
   updateGuild: async (guildId, settings = {}) => {
     try {
@@ -15,26 +43,12 @@ module.exports = {
       return err;
     }
   },
-  updateUser: async (userId) => {
+  ensureGuildMember: async (guildId, userId) => {
     try {
-      const [user, created] = await User.upsert({
-        userId: userId
-      });
-      if (!user) throw new Error('Operation failed');
-      created ? logger.log('User added to database') : logger.log('User updated in database');
-    } catch (err) {
-      logger.error(err);
-      return err;
-    }
-  },
-  updateGuildMember: async (guildId, userId, data = {}) => {
-    try {
-      const [guildMember, created] = await GuildMember.upsert({
-        id: guildId + userId,
-        ...data
-      });
-      if (!guildMember) throw new Error('Operation failed');
-      created ? logger.log('GuildMember added to database') : logger.log('GuildMember updated in database');
+      const guild = await ensureGuild(guildId);
+      const user = await ensureUser(userId);
+      if (!guild || !user) throw new Error('Operation failed');
+      if (!guild.hasUser(user)) await guild.addUser(user, { through: {} });
     } catch (err) {
       logger.error(err);
       return err;

@@ -16,9 +16,10 @@ process.on('unhandledRejection', err => {
 module.exports = {
   // Get default or guild settings
   getSettings: async (guild) => {
+    const options = { raw: true, nest: true };
     let settings;
-    if (guild) settings = await Guild.findByPk(guild.id);
-    if (!guild || !settings) settings = await Guild.findByPk('default');
+    if (guild) settings = await Guild.findByPk(guild.id, options);
+    if (!guild || !settings) settings = await Guild.findByPk('default', options);
     return settings;
   },
   // Grab a single reply with 1 minute timeout
