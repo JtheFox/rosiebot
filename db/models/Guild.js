@@ -3,13 +3,17 @@ const sequelize = require('../connection');
 
 const Guild = sequelize.define('Guild', {
   guildId: {
-    type: DataTypes.CHAR(18),
+    type: DataTypes.STRING,
     allowNull: false,
     primaryKey: true,
   },
   prefix: {
     type: DataTypes.STRING,
-    allowNull: false
+    defaultValue: '.rosie '
+  },
+  embedColor: {
+    type: DataTypes.STRING,
+    defaultValue: '#96baff'
   }
 });
 

@@ -4,10 +4,9 @@ const { GatewayIntentBits, Partials } = require('discord.js');
 const config = {
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.DirectMessages, GatewayIntentBits.MessageContent],
   partials: [Partials.Channel],
-  embedColor: '#96baff',
   defaultSettings: {
-    guildId: 'default',
     prefix: '.rosie ',
+    embedColor: '#96baff',
   },
   permLevels: [
     {

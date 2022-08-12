@@ -1,16 +1,16 @@
 const { CHAR } = require('sequelize');
 const { Model, DataTypes } = require('sequelize');
+const { GuildMember } = require('.');
 const sequelize = require('../connection');
 
-const User = sequelize.define('GuildMember', {
+const GuildMember = sequelize.define('GuildMember', {
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull: false,
-    autoIncrement: true,
     primaryKey: true
   },
   guildId: {
-    type: CHAR(18),
+    type: DataTypes.STRING,
     allowNull: false,
     references: {
       model: 'Guild',
@@ -18,7 +18,7 @@ const User = sequelize.define('GuildMember', {
     }
   },
   userId: {
-    type: CHAR(18),
+    type: DataTypes.STRING,
     allowNull: false,
     references: {
       model: 'User',
@@ -26,11 +26,13 @@ const User = sequelize.define('GuildMember', {
     }
   },
   betWins: {
-    type: DataTypes.INTEGER
+    type: DataTypes.INTEGER,
+    defaultValue: 0
   },
   betLosses: {
-    type: DataTypes.INTEGER
+    type: DataTypes.INTEGER,
+    defaultValue: 0
   }
 });
 
-module.exports = User;
+module.exports = GuildMember;

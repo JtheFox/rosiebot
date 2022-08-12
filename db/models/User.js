@@ -3,7 +3,7 @@ const sequelize = require('../connection');
 
 const User = sequelize.define('User', {
   userId: {
-    type: DataTypes.CHAR(18),
+    type: DataTypes.STRING,
     allowNull: false,
     primaryKey: true,
   },

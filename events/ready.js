@@ -1,3 +1,4 @@
+// TODO: Sequelize migration
 const logger = require('../utils/logger');
 const { Guild } = require('../utils/models.js');
 const { defaultSettings } = require('../config.js');
