@@ -1,9 +1,16 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../connection');
 
-class Guild extends model {};
-Guild.init(
-  
-);
+const Guild = sequelize.define('Guild', {
+  guildId: {
+    type: DataTypes.CHAR(18),
+    allowNull: false,
+    primaryKey: true,
+  },
+  prefix: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
+});
 
 module.exports = Guild;
