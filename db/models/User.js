@@ -1,20 +1,9 @@
-const { Schema, model } = require('mongoose');
+const { Model, DataTypes } = require('sequelize');
+const sequelize = require('../connection');
 
-const User = model(
-  'User',
-  new Schema({
-    userId: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    guilds: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Guild'
-      }
-    ],
-  })
+class User extends model {};
+User.init(
+
 );
 
 module.exports = User;
