@@ -1,7 +1,7 @@
 const { isAdmin, pluralize } = require('../utils/helpers');
 const logger = require('../utils/logger');
 const { EmbedBuilder } = require('discord.js');
-const getBets = () => JSON.parse(process.env.BETS);
+const getBets = () => new Map(Object.entries(JSON.parse(process.env.BETS)));
 const setBets = (bets) => process.env.BETS = JSON.stringify(bets);
 
 exports.run = async (client, message, args) => {
@@ -11,6 +11,8 @@ exports.run = async (client, message, args) => {
   const bet = bets.get(betId);
   const { prefix, embedColor } = message.settings;
 
+  // TODO: Fix the bets not saving properly
+  logger.log(bets);
   try {
     const addBetPrecheck = () => {
       // Check that the bet is active and open for betting
@@ -18,7 +20,7 @@ exports.run = async (client, message, args) => {
       if (!bet.isOpen()) throw new Error('Betting has been closed');
     }
 
-    switch (flags[0]) {
+    switch (message.flags[0]) {
       // Create cases for all flag aliases
       case 'create':
       case 'start':
@@ -31,7 +33,7 @@ exports.run = async (client, message, args) => {
         // Check for valid bet creation criteria
         if (!(name && one && two)) throw new Error(`Invalid command usage, use \`${prefix}help bet\` for more information`);
         // Create new bet object
-        const disp = await message.channel.send('Creating bet...');
+        const disp = await message.channel.send({ embeds: [new EmbedBuilder().setColor(embedColor).setTitle('Creating bet...')] });
         bets.set(betId, new Bet(name, one, two, message.author, disp, embedColor));
         break;
       case 'cancel':
@@ -46,23 +48,24 @@ exports.run = async (client, message, args) => {
         bet.endBet(winner);
         break;
       case 'one':
-      case 1:
+      case '1':
         addBetPrecheck();
         bet.addBet(1, message.author.id)
         break;
       case 'two':
-      case 2:
+      case '2':
         addBetPrecheck();
         bet.addBet(2, message.author.id);
         break;
       default:
-        break;
+        throw new Error('No action specified');
     }
   } catch (err) {
-    logger.error(err.stack);
-    message.reply(`❌ Could not run command: ${err.message}`);
+    logger.warn(err.stack);
+    message.reply(`❌ ${err.message}`);
   }
 
+  logger.log(bets)
   setBets(bets);
 };
 
@@ -86,7 +89,7 @@ class Bet {
   #betOwner;
   #display;
   #embedColor;
-  
+
   constructor(name, optionOne, optionTwo, member, msg, color, closeDelay = 120000) {
     this.#name = name;
     this.#optionOne = {
@@ -105,7 +108,8 @@ class Bet {
     this.#embedColor = color;
     this.#updateEmbed();
     setTimeout(() => {
-      this.#closeBet();
+      this.#open = false;
+      this.#updateEmbed();
     }, closeDelay);
   }
 
@@ -171,11 +175,6 @@ class Bet {
         break;
       default: throw new Error('Invalid bet option provided');
     }
-    this.#updateEmbed();
-  }
-
-  #closeBet() {
-    this.#open = false;
     this.#updateEmbed();
   }
 
