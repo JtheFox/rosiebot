@@ -1,7 +1,6 @@
 const { isAdmin, pluralize } = require('../utils/helpers');
 const logger = require('../utils/logger');
 const { EmbedBuilder } = require('discord.js');
-const { Error } = require('sequelize');
 const getBets = () => JSON.parse(process.env.BETS);
 const setBets = (bets) => process.env.BETS = JSON.stringify(bets);
 
@@ -13,13 +12,19 @@ exports.run = async (client, message, args) => {
   const { prefix, embedColor } = message.settings;
 
   try {
+    const addBetPrecheck = () => {
+      // Check that the bet is active and open for betting
+      if (!bet?.isActive()) throw new Error('There is no active bet, create a new one to start betting');
+      if (!bet.isOpen()) throw new Error('Betting has been closed');
+    }
+
     switch (flags[0]) {
-      case 'c': // Create cases for all flag aliases
+      // Create cases for all flag aliases
       case 'create':
       case 'start':
       case 'new':
         // Check for active bet
-        if (bet && bet.active) throw new Error('There')
+        if (bet && bet.isActive()) throw new Error('The active bet must be ended before creating a new one')
         // Destructure bet creation operands
         const name = args.shift();
         const [one, two] = args.join(' ').split(',');
@@ -29,8 +34,30 @@ exports.run = async (client, message, args) => {
         const disp = await message.channel.send('Creating bet...');
         bets.set(betId, new Bet(name, one, two, message.author, disp, embedColor));
         break;
+      case 'cancel':
+        bet.endBet();
+        break;
+      case 'end':
+      case 'finish':
+        // Check for active bet
+        if (!bet?.isActive()) throw new Error('There is no active bet to end');
+        const winner = typeof args[0] === 'string' ? parseInt(args[0]) : null;
+        if (!winner || (winner !== 1 && winner !== 2)) throw new Error('A valid winner must be given (1 or 2)');
+        bet.endBet(winner);
+        break;
+      case 'one':
+      case 1:
+        addBetPrecheck();
+        break;
+      case 'two':
+      case 2:
+        addBetPrecheck();
+        break;
+      default:
+        break;
     }
   } catch (err) {
+    logger.error(err.stack);
     message.reply(`❌ Could not run command: ${err.message}`);
   }
 
