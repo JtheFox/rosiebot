@@ -48,10 +48,12 @@ exports.run = async (client, message, args) => {
       case 'one':
       case 1:
         addBetPrecheck();
+        bet.addBet(1, message.author.id)
         break;
       case 'two':
       case 2:
         addBetPrecheck();
+        bet.addBet(2, message.author.id);
         break;
       default:
         break;
