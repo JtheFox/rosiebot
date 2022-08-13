@@ -77,6 +77,16 @@ exports.config = {
 };
 
 class Bet {
+  #name;
+  #optionOne;
+  #optionTwo;
+  #open;
+  #active;
+  #winner;
+  #betOwner;
+  #display;
+  #embedColor;
+  
   constructor(name, optionOne, optionTwo, member, msg, color, closeDelay = 120000) {
     this.#name = name;
     this.#optionOne = {
@@ -129,7 +139,7 @@ class Bet {
     return new EmbedBuilder()
       .setColor(this.#embedColor)
       .setTitle(this.#name)
-      .setDescription(`Winner: ${this.winner} with ${winBetters} better${pluralize(pluralize(winBetters))}`)
+      .setDescription(`Winner: ${this.#winner} with ${winBetters} better${pluralize(pluralize(winBetters))}`)
   }
 
   #updateEmbed() {
