@@ -9,7 +9,7 @@ const Guild = sequelize.define('Guild', {
   },
   prefix: {
     type: DataTypes.STRING,
-    defaultValue: '.rosie '
+    defaultValue: '.rosie'
   },
   embedColor: {
     type: DataTypes.STRING,
