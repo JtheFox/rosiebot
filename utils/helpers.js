@@ -37,4 +37,5 @@ module.exports = {
   // Get random element from array
   arrayRandom: (arr) => arr[Math.floor(Math.random() * arr.length)],
   isAdmin: (member) => member.permissions.has('ADMINISTRATOR'),
+  embedBreak: { name: '\u200B', value: '\u200B' },
 }
