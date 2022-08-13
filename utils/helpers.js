@@ -38,4 +38,5 @@ module.exports = {
   arrayRandom: (arr) => arr[Math.floor(Math.random() * arr.length)],
   isAdmin: (member) => member.permissions.has('ADMINISTRATOR'),
   embedBreak: { name: '\u200B', value: '\u200B' },
+  pluralize: (length) => length === 1 ? '' : 's',
 }
