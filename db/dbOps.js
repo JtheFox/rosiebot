@@ -1,4 +1,4 @@
-const { Guild, User, GuildMember } = require('../models');
+const { Guild, User, GuildMember } = require('./models');
 const logger = require('../utils/logger.js');
 
 // Precheck to find or create user in the database
