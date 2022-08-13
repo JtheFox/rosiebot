@@ -20,7 +20,6 @@ process.env.BETS = JSON.stringify(new Map());
 client.container = {
   commands,
   aliases,
-  bets
 };
 
 // Init function
