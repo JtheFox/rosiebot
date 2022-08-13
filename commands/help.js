@@ -17,7 +17,7 @@ exports.run = async (client, message, args) => {
   // If no command specified show all commands
   if (!commandName) {
     // Begin creating display output
-    output.setTitle('Command List').setDescription(`Use \`${prefix}help <command>\` for more details`);
+    output.setTitle(`Command List | Prefix: \`${prefix}\` `).setDescription(`Use \`${prefix}help <command>\` for more details`);
     // Add available commands to display output
     commandList.sort().forEach(cmd => {
       const { name, description } = cmd.config;
@@ -45,7 +45,7 @@ exports.config = {
   name: 'help',
   alias: ['h'],
   description: 'Display all commands or show details for a specific command',
-  usage: '.help <command>',
+  usage: 'help <command>',
   enabled: true,
   guildOnly: false,
   permLevel: 'User',
