@@ -6,7 +6,7 @@ const config = {
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.DirectMessages, GatewayIntentBits.MessageContent],
   partials: [Partials.Channel],
   defaultSettings: {
-    prefix: '.rosie',
+    prefix: '.rosie ',
     embedColor: '#96baff',
   },
   permLevels: [
