@@ -3,7 +3,8 @@ const logger = require('../utils/logger');
 const { EmbedBuilder } = require('discord.js');
 
 exports.run = async (client, message, args) => {
-  const bet = client.container.bets.get(message.guild.id);
+  betId = message.guild.id;
+  const bet = process.env.BETS.get(betId);
 
   try {
     switch (flags[0]) {
@@ -20,7 +21,7 @@ exports.run = async (client, message, args) => {
         if (!(name && one && two)) throw new Error(`Invalid command usage, use \`${prefix}help bet\` for more information`);
         // Create new bet object
         const disp = await message.channel.send('Creating bet...');
-        const newBet = new Bet(name, one, two, message.author.id, disp);
+        process.env.BETS.set(betId, new Bet(name, one, two, message.author.id, disp));
     }
   } catch (err) {
     message.reply(`❌ Could not run command: ${err.message}`);
