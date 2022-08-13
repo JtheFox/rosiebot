@@ -1,6 +1,7 @@
 const { Guild, User, GuildMember } = require('../models');
 const logger = require('../utils/logger.js');
 
+// Precheck to find or create user in the database
 const ensureUser = async (userId) => {
   try {
     const [user, created] = await User.findOrCreate({
@@ -15,6 +16,7 @@ const ensureUser = async (userId) => {
   }
 }
 
+// Precheck to find or create guild in the database
 const ensureGuild = async (guildId) => {
   try {
     const [guild, created] = await Guild.findOrCreate({
@@ -29,6 +31,7 @@ const ensureGuild = async (guildId) => {
   }
 }
 
+// Update or create guild in the database
 const updateGuild = async (guildId, settings = {}) => {
   try {
     const [guild, created] = await Guild.upsert({
@@ -43,6 +46,7 @@ const updateGuild = async (guildId, settings = {}) => {
   }
 }
 
+// Precheck to find or create guild member in the join table
 const ensureGuildMember = async (guildId, userId) => {
   try {
     const guild = await ensureGuild(guildId);
@@ -55,6 +59,7 @@ const ensureGuildMember = async (guildId, userId) => {
   }
 }
 
+// Delete guild member from the join table
 const deleteGuildMember = async (guildId, userId) => {
   try {
     const guild = await ensureGuild(guildId);
@@ -67,6 +72,7 @@ const deleteGuildMember = async (guildId, userId) => {
   }
 }
 
+// Update guild member data for betting feature
 const payoutBet = async (guildId, winners = [], losers = []) => {
   try {
     winners.length && GuildMember.increment('betWins', {
