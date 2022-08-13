@@ -18,6 +18,9 @@ exports.run = async (client, message, args) => {
         const [one, two] = args.join(' ').split(',');
         // Check for valid bet creation criteria
         if (!(name && one && two)) throw new Error(`Invalid command usage, use \`${prefix}help bet\` for more information`);
+        // Create new bet object
+        const disp = await message.channel.send('Creating bet...');
+        const newBet = new Bet(name, one, two, message.author.id, disp);
     }
   } catch (err) {
     message.reply(`❌ Could not run command: ${err.message}`);
@@ -35,7 +38,7 @@ exports.config = {
 };
 
 class Bet {
-  constructor(name, optionOne, optionTwo, ownerId, displayMsg) {
+  constructor(name, optionOne, optionTwo, ownerId, displayMsg, closeDelay = 120000) {
     this.#name = name;
     this.#optionOne = {
       name: optionOne,
@@ -51,6 +54,9 @@ class Bet {
     this.#betOwner = ownerId;
     this.#display = displayMsg;
     this.#updateEmbed();
+    setTimeout(() => {
+      this.#closeBet();
+    }, closeDelay);
   }
 
   #getEmbed() {
@@ -77,11 +83,9 @@ class Bet {
     return this.#open;
   }
 
-  closeBet() {
-    if (!this.#open) return false;
+  #closeBet() {
     this.#open = false;
     this.#updateEmbed();
-    return true;
   }
 
   endBet(winner) {
