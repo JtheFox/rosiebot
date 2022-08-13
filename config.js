@@ -1,5 +1,6 @@
-require('dotenv').config()
+require('dotenv').config();
 const { GatewayIntentBits, Partials } = require('discord.js');
+const { isAdmin } = require('./utils/helpers');
 
 const config = {
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.DirectMessages, GatewayIntentBits.MessageContent],
@@ -17,7 +18,7 @@ const config = {
     {
       level: 4,
       name: 'Administrator',
-      check: (message) => message.guild ? (message.member.permissions.has('ADMINISTRATOR') ? true : false) : false
+      check: (message) => message.guild ? isAdmin(message.member) : false
     },
     {
       level: 8,
