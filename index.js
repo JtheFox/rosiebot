@@ -13,10 +13,14 @@ const client = new Client({ intents, partials });
 const commands = new Collection();
 const aliases = new Collection();
 
+// Create map for guild bets
+const bets = new Map();
+
 // Store things in a single property of the client
 client.container = {
   commands,
   aliases,
+  bets
 };
 
 // Init function
