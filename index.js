@@ -14,7 +14,7 @@ const commands = new Collection();
 const aliases = new Collection();
 
 // Create map for guild bets
-process.env.BETS = new Map();
+process.env.BETS = JSON.stringify(new Map());
 
 // Store things in a single property of the client
 client.container = {
