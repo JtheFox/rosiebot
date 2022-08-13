@@ -9,7 +9,7 @@
 ![Heroku](https://img.shields.io/badge/heroku-%23430098.svg?style=for-the-badge&logo=heroku&logoColor=white)
 ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
 
-Rosiebot is a discord bot created in JavaScript based on the template I created. I do not have any current plans to make the bot public so there is no invite link, but I may make a public bot in the future.
+Rosiebot is a personal use discord bot created in JavaScript based on the template I created. I do not have any current plans to make the bot public so there is no invite link, but I may make a public bot in the future.
 
 ## Commands
 `help` - Displays all commands or showsdetails for a specific command
