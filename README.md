@@ -22,7 +22,6 @@ Rosiebot is a personal use discord bot created in JavaScript based on the templa
 ![Usage of the random command](./assets/cmd-random.png)
 
 ## Future Updates
-- Implement caching for guilds in database
-- Add event handler for user leaving guild to remove GuildMember from database
-- Add betting feature
-- Migrate bot host from Heroku to Amazon EC2(?)
+- Add betting feature (in progress)
+- Add prefix change command
+- Migrate bot host from Heroku to Amazon EBS
