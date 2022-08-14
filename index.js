@@ -3,10 +3,8 @@ require('dotenv').config();
 const { Client, Collection } = require('discord.js');
 const { readdir } = require('fs').promises;
 const logger = require('./utils/logger.js');
-const { intents, partials, permLevels } = require('./config.js');
+const { intents, partials } = require('./config.js');
 const sequelize = require('./db/connection.js');
-const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord.js');
 
 // Instantiate client
 const client = new Client({ intents, partials });

@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "dev": "nodemon index.js",
     "deploy:cmd": "node deploy-commands.js",
-    "dev": "nodemon index.js"
+    "ops": "node operations.js"
   },
   "repository": {
     "type": "git",
