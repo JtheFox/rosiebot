@@ -15,9 +15,13 @@ process.on('unhandledRejection', err => {
 module.exports = {
   // Get default or guild settings
   getSettings: async (guild) => {
+    logger.log(guild)
+    const id = !guild ? 
+      undefined :
+      typeof guild === 'string' ? guild : guild.id
     const options = { raw: true, nest: true };
     let settings;
-    if (guild) settings = await Guild.findByPk(guild.id, options);
+    if (id) settings = await Guild.findByPk(id, options);
     if (!guild || !settings) settings = await Guild.findByPk('default', options);
     return settings;
   },
@@ -35,7 +39,13 @@ module.exports = {
   },
   // Get random element from array
   arrayRandom: (arr) => arr[Math.floor(Math.random() * arr.length)],
+  // Check if user has admin perms
   isAdmin: (member) => member.permissions.has('ADMINISTRATOR'),
+  // Empty line in Discord embed
   embedBreak: { name: '\u200B', value: '\u200B' },
-  pluralize: (length) => length === 1 ? '' : 's',
+  // Auto pluralize based on length
+  pluralize: (str, length) => {
+    const len = typeof length === 'number' ? length : length.length;
+    return str + len === 1 ? '' : 's';
+  },    
 }
