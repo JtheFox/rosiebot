@@ -12,19 +12,20 @@ const client = new Client({ intents, partials });
 // Instantiate commands collections
 const commands = new Collection();
 const aliases = new Collection();
-const slashcmds = new Collection();
+
+// Create map for guild bets
+global.bets = new Map();
 
 // Store things in a single property of the client
 client.container = {
   commands,
   aliases,
-  slashcmds
 };
 
 // Init function
 const init = async () => {
   // Read commands and events directories
-  const [cmdFiles, slashFiles, evtFiles] = await Promise.all([readdir('./commands'), readdir('./slash'), readdir('./events')]);
+  const [cmdFiles, evtFiles] = await Promise.all([readdir('./commands'), readdir('./events')]);
 
   // Load commands
   logger.log(`Loading ${cmdFiles.length} commands`);
@@ -39,18 +40,6 @@ const init = async () => {
     }
   });
 
-  // Load slash commands
-  // logger.log(`Loading ${slashFiles.length} commands`);
-  // slashFiles.filter(file => file.endsWith('.js')).forEach(slash => {
-  //   try {
-  //     logger.log(`Loading Slash Command: ${slash}`);
-  //     const props = require(`./slash/${slash}`);
-  //     client.container.slashcmds.set(props.commandData.name, props);
-  //   } catch (err) {
-  //     logger.error(`Failed to load command ${command}: ${err}`);
-  //   }
-  // });
-
   // Load events
   logger.log(`Loading ${evtFiles.length} events`);
   evtFiles.filter(file => file.endsWith('.js')).forEach(file => {
@@ -60,9 +49,10 @@ const init = async () => {
     client.on(eventName, event.bind(null, client));
   });
 
+  // Ensure database connection
   try {
     await sequelize.authenticate();
-    logger.ready('Connection has been established successfully.');
+    logger.ready('Connection to the database has been established successfully.');
   } catch (error) {
     logger.error(['Unable to connect to the database:', error]);
     process.exit(1);
