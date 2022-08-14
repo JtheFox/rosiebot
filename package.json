@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "start:dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "deploy:cmd": "node deploy-commands.js",
+    "ops": "node operations.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +21,7 @@
   },
   "homepage": "https://github.com/JtheFox/rosiebot#readme",
   "dependencies": {
+    "@discordjs/rest": "^1.0.1",
     "chalk": "^4.1.0",
     "discord.js": "^14.0.3",
     "dotenv": "^16.0.1",

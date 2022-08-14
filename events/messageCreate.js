@@ -1,6 +1,6 @@
 const logger = require('../utils/logger.js');
 const { getSettings } = require('../utils/helpers.js');
-const { embedColor, permLevels } = require('../config.js');
+const { permLevels } = require('../config.js');
 // On message received
 module.exports = async (client, message) => {
   const { container } = client;
