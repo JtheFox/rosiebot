@@ -1,7 +1,7 @@
 const logger = require('../utils/logger.js');
+const { getSettings } = require('../utils/helpers.js');
 
 module.exports = async (client, interaction) => {
-  logger.log(interaction)
   // Exit if not command
   if (!interaction.isChatInputCommand()) return;
 
@@ -10,6 +10,10 @@ module.exports = async (client, interaction) => {
 
   // Exit if not a valid command
   if (!cmd) return;
+
+  // Get guild settings
+  interaction.settings = interaction.guildId && interaction.guildId.length > 0 ?
+    await getSettings(interaction.guildId) : await getSettings();
 
   // Otherwise, run command
   try {
