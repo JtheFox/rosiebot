@@ -7,6 +7,7 @@ const { EmbedBuilder } = require('discord.js');
 // TODO: Add bet payouts
 // TODO: Improve bet status indicators
 // TODO: Improve bet result display
+// TODO: Refactor Bet class
 exports.run = async (client, interaction) => {
   // Initialize and descture variables
   const { embedColor } = interaction.settings;
@@ -216,7 +217,7 @@ class Bet {
   }
 
   getBetters(option) {
-    return option === 1 ? this.optionOne.betters : this.optionTwo.betters
+    return option === 1 ? this.optionOne.betters : this.optionTwo.betters;
   }
 
   getEmbed() {
@@ -231,7 +232,7 @@ class Bet {
       .addFields(
         {
           name: `1️⃣ ${this.optionOne.name}`,
-          value: `${this.getBetters(1).length} ${pluralize('better', this.getBetters(2))}`
+          value: `${this.getBetters(1).length} ${pluralize('better', this.getBetters(1))}`
         },
         {
           name: `2️⃣ ${this.optionTwo.name}`,
