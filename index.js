@@ -81,18 +81,6 @@ const init = async () => {
   // Login the client after connection to db
   sequelize.sync({ force: false }).then(async () => {
     await client.login(process.env.BOT_TOKEN);
-    // Put slash command routes
-    const rest = new REST({ version: '10' }).setToken(process.env.BOT_TOKEN);
-    try {
-      logger.log('Putting global slash command routes');
-      await rest.put(
-        Routes.applicationCommands(client.application.id),
-        { body: commands.values() },
-      );
-      logger.log('Global slash command routes put successfully')
-    } catch (err) {
-      logger.error(`Error putting slash command routes: ${err.stack}`);
-    }
   });
 }
 
