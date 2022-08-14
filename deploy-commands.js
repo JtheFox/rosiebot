@@ -26,11 +26,12 @@ const deploy = async () => {
   const rest = new REST({ version: '10' }).setToken(process.env.BOT_TOKEN);
   try {
     logger.log('Sending put request for slash commands');
-    await rest.put(
+    const res = await rest.put(
       Routes.applicationCommands(process.env.APP_ID),
       { body: commands },
     );
-    logger.ready('Slash commands deployed successfully');
+    logger.log(res)
+    logger.ready('Slash commands deployed');
   } catch (err) {
     logger.error(`Error deploying slash commands: ${err.stack}`);
   }
