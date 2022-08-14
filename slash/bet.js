@@ -47,9 +47,10 @@ exports.cmd = {
       "options": [
         {
           "type": 3,
-          "name": "option2",
-          "description": "Second bet option",
-          "required": true
+          "name": "title",
+          "description": "Title of the bet",
+          "required": true,
+          "choices": []
         },
         {
           "type": 3,
@@ -60,11 +61,10 @@ exports.cmd = {
         },
         {
           "type": 3,
-          "name": "title",
-          "description": "Title of the bet",
-          "required": true,
-          "choices": []
-        }
+          "name": "option2",
+          "description": "Second bet option",
+          "required": true
+        },
       ]
     },
     {
@@ -79,11 +79,11 @@ exports.cmd = {
           "required": true,
           "choices": [
             {
-              "name": "option1",
+              "name": "1",
               "value": 1
             },
             {
-              "name": "option2",
+              "name": "2",
               "value": 2
             }
           ]
