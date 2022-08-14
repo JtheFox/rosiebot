@@ -2,9 +2,11 @@ const { readdir } = require('fs').promises;
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord.js');
 require('dotenv').config();
-const logger = require('./utils/logger');
+const logger = require('../utils/logger');
+const rest = new REST({ version: '10' }).setToken(process.env.BOT_TOKEN);
 
-const deploy = async () => {
+// Deploy slash commands to Discord
+exports.deploy = async () => {
   // Read slash directory
   const commands = [];
   const cmdFiles = await readdir('./slash')
@@ -21,20 +23,27 @@ const deploy = async () => {
     }
   });
 
-  // Put slash command routes
+  // Put slash commands
   logger.log(`Deploying ${commands.length} commands`);
-  const rest = new REST({ version: '10' }).setToken(process.env.BOT_TOKEN);
   try {
     logger.log('Sending put request for slash commands');
-    const res = await rest.put(
+    await rest.put(
       Routes.applicationCommands(process.env.APP_ID),
       { body: commands },
     );
-    logger.log(res)
     logger.ready('Slash commands deployed');
   } catch (err) {
     logger.error(`Error deploying slash commands: ${err.stack}`);
   }
 }
 
-deploy();
+// Get slash commands from Discord
+exports.retrieve = async () => {
+  try {
+    logger.log('Sending get request for slash commands');
+    const res = await rest.get(Routes.applicationCommands(process.env.APP_ID));
+    logger.log(res);
+  } catch (err) {
+    logger.error(`Error deploying slash commands: ${err.stack}`);
+  }
+}

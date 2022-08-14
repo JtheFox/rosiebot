@@ -1,8 +1,11 @@
+// Module imports
 require('dotenv').config();
 const { Client } = require('discord.js');
-const logger = require('./utils/logger.js');
-const { intents, partials } = require('./config.js');
+const logger = require('../utils/logger.js');
+const { intents, partials } = require('../config.js');
 const client = new Client({ intents, partials });
+// Operations imports
+const { deploy, retrieve } = require('./commands.js');
 
 // TODO: Change this into an inquirer based interface
 const init = async () => {
@@ -32,4 +35,7 @@ const leaveGuild = async (guildId) => {
   await guild.leave();
 }
 
-init();
+(async () => { 
+  await retrieve();
+  process.exit(0);
+})();
