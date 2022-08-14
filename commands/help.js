@@ -21,7 +21,7 @@ exports.run = async (client, message, args) => {
     // Add available commands to display output
     commandList.sort().forEach(cmd => {
       const { name, description } = cmd.config;
-      output.addFields({ name: name, value: description });
+      output.addFields({ name: name, value: !description.length ? 'No description provided' : description });
     });
   } else {
     // Check if command exists
@@ -31,7 +31,7 @@ exports.run = async (client, message, args) => {
     const { name, description, alias, usage } = commandHelp.config;
     output
       .setTitle(name)
-      .setDescription(description)
+      .setDescription(!description.length ? 'No description provided' : description)
       .addFields(
         { name: 'Aliases', value: alias.join(', ') },
         { name: 'Usage', value: `\`${usage}\`` }
