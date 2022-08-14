@@ -3,6 +3,7 @@ const logger = require('../utils/logger');
 const { EmbedBuilder } = require('discord.js');
 
 exports.run = async (client, message, args) => {
+  // TODO: Convert to slash command + Add help slash command + Add usage
   // Initialize and descture variables
   const betId = message.guild.id;
   let bet = global.bets.get(betId);
