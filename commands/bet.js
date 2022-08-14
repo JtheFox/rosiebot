@@ -92,7 +92,7 @@ class Bet {
   display;
   embedColor;
 
-  constructor(name, optionOne, optionTwo, member, msg, color, closeDelay = 120000) {
+  constructor(name, optionOne, optionTwo, member, msg, color, closeDelay = 1000 * 60 * 2) {
     this.name = name;
     this.optionOne = {
       name: optionOne,
@@ -109,11 +109,16 @@ class Bet {
     this.display = msg;
     this.embedColor = color;
     this.updateEmbed();
+    // Close bet after delay
     setTimeout(() => {
       this.closeBet();
       this.updateEmbed();
       this.display.channel.send({ embeds: [new EmbedBuilder().setTitle(this.name).setDescription('Betting is now closed')] });
     }, closeDelay);
+    // Auto end bet if active after 2 hours
+    setTimeout(() => {
+      if (this.active) this.endBet();
+    }, 1000 * 60 * 60 * 2)
   }
 
   getBetters(option) {
