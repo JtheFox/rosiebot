@@ -15,7 +15,6 @@ process.on('unhandledRejection', err => {
 module.exports = {
   // Get default or guild settings
   getSettings: async (guild) => {
-    logger.log(guild)
     const id = !guild ? 
       undefined :
       typeof guild === 'string' ? guild : guild.id
@@ -46,6 +45,7 @@ module.exports = {
   // Auto pluralize based on length
   pluralize: (str, length) => {
     const len = typeof length === 'number' ? length : length.length;
-    return str + len === 1 ? '' : 's';
+    str += len === 1 ? '' : 's';
+    return str;
   },    
 }
