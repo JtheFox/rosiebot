@@ -146,12 +146,15 @@ class Bet {
       )
   }
 
-  getResultEmbed(option) {
+  postResultsEmbed(option) {
     const winBetters = this.getBetters(option).length;
-    return new EmbedBuilder()
-      .setColor(this.embedColor)
-      .setTitle(this.name)
-      .setDescription(`Winner: ${this.winner} with ${winBetters} better${pluralize(pluralize(winBetters))}`)
+    this.display.channel.send({
+      embeds: [new EmbedBuilder()
+        .setColor(this.embedColor)
+        .setTitle(this.name)
+        .setDescription(`Winner: **${this.winner}** with **${winBetters} better${pluralize(pluralize(winBetters))}**`)
+      ]
+    })
   }
 
   updateEmbed() {
@@ -202,13 +205,15 @@ class Bet {
         this.active = false;
         this.winner = this.optionOne.name;
         this.updateEmbed();
-        return [this.getResultEmbed(1), this.getBetters(1), this.getBetters(2)];
+        this.postResultsEmbed(1);
+        return [this.getBetters(1), this.getBetters(2)];
       case 2:
         this.closeBet();
         this.active = false;
         this.winner = this.optionTwo.name;
         this.updateEmbed();
-        return [this.getResultEmbed(2), this.getBetters(2), this.getBetters(1)];
+        this.postResultsEmbed(2);
+        return [this.getBetters(2), this.getBetters(1)];
       default:
         return false;
     }
