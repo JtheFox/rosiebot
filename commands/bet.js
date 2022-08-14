@@ -2,13 +2,13 @@ const { isAdmin, pluralize } = require('../utils/helpers');
 const logger = require('../utils/logger');
 const { EmbedBuilder } = require('discord.js');
 const getBets = () => new Map(Object.entries(JSON.parse(process.env.BETS)));
-const setBets = (bets) => process.env.BETS = JSON.stringify(bets);
+const setBets = (bets) => process.env.BETS = JSON.stringify(Object.fromEntries(bets));
 
 exports.run = async (client, message, args) => {
   // Initialize and descture variables
   const bets = getBets();
-  betId = message.guild.id;
-  const bet = bets.get(betId);
+  const betId = message.guild.id;
+  let bet = bets.get(betId);
   const { prefix, embedColor } = message.settings;
 
   // TODO: Fix the bets not saving properly
@@ -34,7 +34,8 @@ exports.run = async (client, message, args) => {
         if (!(name && one && two)) throw new Error(`Invalid command usage, use \`${prefix}help bet\` for more information`);
         // Create new bet object
         const disp = await message.channel.send({ embeds: [new EmbedBuilder().setColor(embedColor).setTitle('Creating bet...')] });
-        bets.set(betId, new Bet(name, one, two, message.author, disp, embedColor));
+        bet = new Bet(name, one, two, message.author, disp, embedColor)
+        bets.set(betId, bet);
         break;
       case 'cancel':
         bet.endBet();
@@ -65,7 +66,7 @@ exports.run = async (client, message, args) => {
     message.reply(`❌ ${err.message}`);
   }
 
-  logger.log(bets)
+  logger.log(bets);
   setBets(bets);
 };
 
