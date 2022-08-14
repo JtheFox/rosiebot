@@ -10,15 +10,26 @@ const init = async () => {
   await client.login(process.env.BOT_TOKEN);
   logger.log('Client logged in, performing operations...');
   try {
-    leaveGuild('578648253235724317');
+    // Bot operations go here
+    await leaveGuild('578648253235724317');
+
+    logger.ready('All operations completed');
+    process.exit(0);
   } catch (err) {
     logger.error(err);
+    process.exit(1);
   }
 }
 
 // Perform specific operations on the bot
-const leaveGuild = (guildId) => {
-  client.guilds.cache.get(guildId).leave();
+const leaveGuild = async (guildId) => {
+  const guild = client.guilds.cache.get(guildId);
+  if (!guild) {
+    logger.error(`Guild ${guildId} not found`);
+    return;
+  }
+  logger.warn(`Leaving Guild ${guildId}`);
+  await guild.leave();
 }
 
 init();
