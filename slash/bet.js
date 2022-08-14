@@ -28,11 +28,11 @@ exports.cmd = {
           "description": "Number of the winning bet option",
           "choices": [
             {
-              "name": "option 1",
+              "name": "option1",
               "value": 1
             },
             {
-              "name": "option 1",
+              "name": "option1",
               "value": 1
             }
           ],
@@ -47,13 +47,13 @@ exports.cmd = {
       "options": [
         {
           "type": 3,
-          "name": "option 2",
+          "name": "option2",
           "description": "Second bet option",
           "required": true
         },
         {
           "type": 3,
-          "name": "option 1",
+          "name": "option1",
           "description": "First bet option",
           "required": true,
           "choices": []
@@ -79,11 +79,11 @@ exports.cmd = {
           "required": true,
           "choices": [
             {
-              "name": "option 1",
+              "name": "option1",
               "value": 1
             },
             {
-              "name": "option 2",
+              "name": "option2",
               "value": 2
             }
           ]
