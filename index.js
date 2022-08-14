@@ -12,6 +12,7 @@ const client = new Client({ intents, partials });
 // Instantiate commands collections
 const commands = new Collection();
 const aliases = new Collection();
+const slashcmds = new Collection();
 
 // Create map for guild bets
 global.bets = new Map();
@@ -20,12 +21,13 @@ global.bets = new Map();
 client.container = {
   commands,
   aliases,
+  slashcmds,
 };
 
 // Init function
 const init = async () => {
   // Read commands and events directories
-  const [cmdFiles, evtFiles] = await Promise.all([readdir('./commands'), readdir('./events')]);
+  const [cmdFiles, slashFiles, evtFiles] = await Promise.all([readdir('./commands'), readdir('./slash'), readdir('./events')]);
 
   // Load commands
   logger.log(`Loading ${cmdFiles.length} commands`);
