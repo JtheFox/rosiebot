@@ -37,6 +37,7 @@ Rosiebot is a personal use discord bot created in JavaScript based on the templa
 - Persistent data for guild member's bet scores
 - Ability to set the bet close timer in slash command options
 - Improvements to bet displays
+- Website for the bot
 
 **Commands**:
 - Change bot command prefix
