@@ -43,6 +43,8 @@ exports.run = async (client, interaction) => {
           setReply('Betting has already been closed', true);
           break;
         }
+        bet.closeBet();
+        setReply('Bet closed successfully');
         break;
       case 'cancel':
       case 'end':
@@ -75,7 +77,7 @@ exports.run = async (client, interaction) => {
     }
   } catch (err) {
     logger.error(err);
-    errorMsg = 'An error occurred while running the command';
+    setReply('An error occurred while running the command', true);
   }
 
   global.bets.set(guildId, bet);
@@ -208,7 +210,9 @@ class Bet {
       if (!(this.active && this.open)) return
       this.closeBet();
       this.updateEmbed();
-      this.display.channel.send({ embeds: [new EmbedBuilder().setTitle(this.name).setDescription('Betting is now closed')] });
+      this.display.channel.send({
+        embeds: [new EmbedBuilder().setColor(this.embedColor).setTitle(this.name).setDescription('Betting is now closed')]
+      });
     }, closeDelay);
     // Auto end bet if active after 2 hours
     setTimeout(() => {
