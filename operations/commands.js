@@ -1,12 +1,12 @@
+require('dotenv').config();
+const logger = require('../utils/logger');
 const { readdir } = require('fs').promises;
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord.js');
-require('dotenv').config();
-const logger = require('../utils/logger');
 const rest = new REST({ version: '10' }).setToken(process.env.BOT_TOKEN);
 
 // Deploy slash commands to Discord
-exports.deploy = async () => {
+exports.deployCmds = async () => {
   // Read slash directory
   const commands = [];
   const cmdFiles = await readdir('./slash')
@@ -38,11 +38,11 @@ exports.deploy = async () => {
 }
 
 // Get slash commands from Discord
-exports.retrieve = async () => {
+exports.retrieveCmds = async () => {
   try {
     logger.log('Sending get request for slash commands');
     const res = await rest.get(Routes.applicationCommands(process.env.APP_ID));
-    logger.log(res);
+    logger.log(JSON.stringify(res, null, 2));
   } catch (err) {
     logger.error(`Error deploying slash commands: ${err.stack}`);
   }

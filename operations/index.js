@@ -1,41 +1,84 @@
 // Module imports
 require('dotenv').config();
-const { Client } = require('discord.js');
+const inquirer = require('inquirer');
 const logger = require('../utils/logger.js');
+const { Client } = require('discord.js');
 const { intents, partials } = require('../config.js');
 const client = new Client({ intents, partials });
 // Operations imports
-const { deploy, retrieve } = require('./commands.js');
+const { deployCmds, retrieveCmds } = require('./commands.js');
+const { leaveGuild, viewGuilds } = require('./guilds.js')
 
-// TODO: Change this into an inquirer based interface
+// Create internal operations to handle prompt inputs
+const exit = () => {
+  logger.log('Exiting operations');
+  process.exit(0);
+}
+
+const promptGuildId = async () => {
+  const guildId = await inquirer.prompt({ 
+    type: 'input', 
+    name: 'value' ,
+    message: 'Enter the id of the guild for the bot to leave:'
+  });
+  return guildId.value;
+}
+
+const promptContinue = async () => {
+  await inquirer.prompt({ 
+    type: 'input', 
+    name: 'value' ,
+    message: 'Press enter to continue'
+  });
+}
+
 const init = async () => {
-  logger.log('Logging in the client');
-  await client.login(process.env.BOT_TOKEN);
-  logger.log('Client logged in, performing operations...');
   try {
-    // Bot operations go here
-    await leaveGuild('578648253235724317');
+    const choice = await inquirer.prompt({
+      type: 'list',
+      name: 'value',
+      message: 'What do you want to do?',
+      choices: [
+        { name: 'Deploy slash commands', value: 'deployCmds' },
+        { name: 'View deployed slash commands', value: 'retrieveCmds' },
+        { name: 'View guilds', value: 'viewGuilds' },
+        { name: 'Leave guild', value: 'leaveGuild' },
+        { name: 'Exit', value: 'exit' }
+      ]
+    });
 
-    logger.ready('All operations completed');
-    process.exit(0);
+    switch (choice.value) {
+      case 'deployCmds':
+        await deployCmds();
+        break;
+      case 'retrieveCmds':
+        await retrieveCmds();
+        break;
+      case 'viewGuilds':
+        await viewGuilds(client);
+        break;
+      case 'leaveGuild':
+        const guildId = await promptGuildId();
+        await leaveGuild(client, guildId);
+        break;
+      case 'exit':
+        exit();
+        break;
+      default: throw new Error('No choice provided');
+    }
+
+    await promptContinue();
+    init();
   } catch (err) {
     logger.error(err);
-    process.exit(1);
+    await promptContinue();
+    init();
   }
 }
 
-// Perform specific operations on the bot
-const leaveGuild = async (guildId) => {
-  const guild = client.guilds.cache.get(guildId);
-  if (!guild) {
-    logger.error(`Guild ${guildId} not found`);
-    return;
-  }
-  logger.warn(`Leaving Guild ${guildId}`);
-  await guild.leave();
-}
-
-(async () => { 
-  await retrieve();
-  process.exit(0);
+(async () => {
+  logger.log('Logging in the client...');
+  await client.login(process.env.BOT_TOKEN);
+  logger.ready('Client logged in successfully\n');
+  init();
 })();
