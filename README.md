@@ -42,3 +42,5 @@ Rosiebot is a personal use discord bot created in JavaScript based on the templa
 **Commands**:
 - Change bot command prefix
 - Duel command between 2 users
+- Flip a coin 
+- Rock, paper, scissors between 2 users
