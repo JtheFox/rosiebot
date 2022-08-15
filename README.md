@@ -17,7 +17,7 @@ Rosiebot is a personal use discord bot created in JavaScript based on the templa
 - Slash commands
 - Per-guild persistent data
 - Betting
-
+- Bot management operations CLI
 
 ## Commands
 `help` - Displays all commands or shows details for a specific command<br>
@@ -37,7 +37,6 @@ Rosiebot is a personal use discord bot created in JavaScript based on the templa
 - Persistent data for guild member's bet scores
 - Ability to set the bet close timer in slash command options
 - Improvements to bet displays
-- Inquirer-based CLI for performing specific bot operations
 
 **Commands**:
 - Change bot command prefix
