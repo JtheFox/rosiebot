@@ -1,6 +1,7 @@
-const { isAdmin, pluralize, embedBreak } = require('../utils/helpers.js');
 const logger = require('../utils/logger.js');
 const { EmbedBuilder } = require('discord.js');
+const { isAdmin, pluralize, embedBreak } = require('../utils/helpers.js');
+const { ensureGuildMember, payoutBet } = require('../db/dbOps.js');
 
 // TODO: Add close timer to bet create options
 // TODO: Add bet payouts
@@ -56,8 +57,10 @@ exports.run = async (client, interaction) => {
           break;
         }
         const winner = options._hoistedOptions[0]?.value;
-        bet.endBet(winner);
+        const payouts = bet.endBet(winner);
         setReply('Bet ended successfully');
+        if (!payouts) break;
+        payoutBet(guildId, payouts);
         break;
       case 'on':
         if (!bet.active) {
@@ -72,6 +75,7 @@ exports.run = async (client, interaction) => {
           setReply('You have already placed a bet', true);
           break;
         }
+        await ensureGuildMember(guildId, member.id)
         const [option] = options._hoistedOptions;
         bet.addBet(option.value, member.id);
         setReply('Bet placed successfully');
@@ -285,7 +289,7 @@ class Bet {
         this.active = false;
         this.postResultsEmbed();
         this.updateEmbed();
-        return true;
+        return false;
       case 1:
         this.closeBet();
         this.active = false;
@@ -301,7 +305,7 @@ class Bet {
         this.postResultsEmbed(2);
         return [this.getBetters(2), this.getBetters(1)];
       default:
-        return false;
+        throw new Error('Invalid option provided');
     }
   }
 }

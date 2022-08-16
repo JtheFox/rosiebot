@@ -8,6 +8,20 @@ const GuildMember = sequelize.define('GuildMember', {
     autoIncrement: true,
     allowNull: false
   },
+  guildId: {
+    type: DataTypes.STRING,
+    references: {
+      model: 'Guild',
+      key: 'guildId'
+    }
+  },
+  userId: {
+    type: DataTypes.STRING,
+    references: {
+      model: 'User',
+      key: 'userId'
+    }
+  },
   betWins: {
     type: DataTypes.INTEGER,
     defaultValue: 0,

@@ -1,11 +1,12 @@
-const { Guild, User, GuildMember } = require('./models');
 const logger = require('../utils/logger.js');
+const { Guild, User, GuildMember } = require('./models');
+const { Op } = require('sequelize');
 
 // Precheck to find or create user in the database
 const ensureUser = async (userId) => {
   try {
     const [user, created] = await User.findOrCreate({
-      userId: userId
+      where: { userId: userId }
     });
     if (!user) throw new Error('Operation failed');
     created ? logger.log('User created') : logger.log('User found');
@@ -19,7 +20,7 @@ const ensureUser = async (userId) => {
 const ensureGuild = async (guildId) => {
   try {
     const [guild, created] = await Guild.findOrCreate({
-      guildId: guildId
+      where: { guildId: guildId }
     });
     if (!guild) throw new Error('Operation failed');
     created ? logger.log('Guild created') : logger.log('Guild found');
@@ -48,8 +49,9 @@ const ensureGuildMember = async (guildId, userId) => {
   try {
     const guild = await ensureGuild(guildId);
     const user = await ensureUser(userId);
-    if (!guild || !user) throw new Error('Operation failed');
+    if (!(guild && user)) throw new Error('Operation failed');
     if (!guild.hasUser(user)) await guild.addUser(user, { through: {} });
+    logger.log(guild)
   } catch (err) {
     logger.error(err);
   }
@@ -68,8 +70,10 @@ const deleteGuildMember = async (guildId, userId) => {
 }
 
 // Update guild member data for betting feature
-const payoutBet = async (guildId, winners = [], losers = []) => {
+const payoutBet = async (guildId, [winners = [], losers = []]) => {
   try {
+    const mems = await GuildMember.findAll();
+    logger.log(mems);
     winners.length && GuildMember.increment('betWins', {
       by: 1,
       where: {
