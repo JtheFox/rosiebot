@@ -21,7 +21,7 @@ module.exports = {
   },
   // Paginate array of results
   paginate: (arr, limit) => {
-    if (arr.length <= limit) return [arr]
+    if (arr.length <= limit) return [arr];
     return arr.reduce((acc, val, index) => {
       const pageIndex = Math.floor(index / limit);
       const page = acc[pageIndex] || (acc[pageIndex] = []);
@@ -31,10 +31,19 @@ module.exports = {
   },
   // Input-based page navigation
   navigatePages: async (pages) => {
-    if (pages.length < 2) {
-      await this.promptContinue();
+    if (pages.length === 1) {
+      logger.log(pages[0]);
       return;
     }
-    
+    let page = 1;
+    while (page > 0 && page < pages.length - 1) {
+      logger.log([`Page ${page}`, ...emojiPages[page - 1], `Page ${page}`]);
+      const input = await inquirer.prompt({
+        type: 'number',
+        name: 'value',
+        message: `Enter a page number (1-${pages.length}, 0 to exit)`
+      });
+      page = input.value;
+    }
   }
 }
