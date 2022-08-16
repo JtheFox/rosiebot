@@ -5,7 +5,7 @@ const logger = require('../utils/logger.js');
 const { Client } = require('discord.js');
 const { intents, partials } = require('../config.js');
 const client = new Client({ intents, partials });
-const { promptInput, promptContinue } = require('./utils.js');
+const { promptInput, promptContinue } = require('./opsUtils.js');
 // Operations imports
 const { deployCmds, retrieveCmds } = require('./commands.js');
 const { leaveGuild, viewGuilds } = require('./guilds.js');
