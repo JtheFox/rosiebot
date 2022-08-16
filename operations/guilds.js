@@ -1,5 +1,7 @@
 const logger = require('../utils/logger.js');
-const { paginate, navigatePages } = require('./opsUtils.js');
+const { paginate, navigatePages, arrayFromCollection } = require('./opsUtils.js');
+
+const parseGuilds = (guilds) => guilds.map(g => ({ name: g.name, id: g.id }))
 
 // Leave a guild by id
 exports.leaveGuild = async (client, guildId) => {
@@ -17,7 +19,7 @@ exports.leaveGuild = async (client, guildId) => {
 // View all client guilds
 exports.viewGuilds = async (client, limit = 50) => {
   logger.log('Retrieving client guilds');
-  const guilds = Array.from(client.guilds.cache.values()).map(g => ( { name: g.name, id: g.id } ));
-  const guildPages = paginate(guilds, limit);
+  const guilds = arrayFromCollection(client.guilds.cache);
+  const guildPages = paginate(parseGuilds(guilds), limit);
   await navigatePages(guildPages);
 }

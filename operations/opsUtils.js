@@ -36,8 +36,9 @@ module.exports = {
       return;
     }
     let page = 1;
+    const getPageLabel = () => `Page ${page} of ${pages.length}` 
     while (page > 0 && page < pages.length - 1) {
-      logger.log([`Page ${page}`, ...emojiPages[page - 1], `Page ${page}`]);
+      logger.log([getPageLabel(), ...emojiPages[page - 1], getPageLabel()]);
       const input = await inquirer.prompt({
         type: 'number',
         name: 'value',
@@ -45,5 +46,7 @@ module.exports = {
       });
       page = input.value;
     }
-  }
+  },
+  // Convert Discord collection to array
+  arrayFromCollection: (coll) => Array.from(coll.values()),
 }
