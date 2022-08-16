@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../connection');
 
 const Guild = sequelize.define('Guild', {
-  guildId: {
+  id: {
     type: DataTypes.STRING,
     allowNull: false,
     primaryKey: true,
