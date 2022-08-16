@@ -3,7 +3,7 @@ require('dotenv').config();
 const { Client, Collection } = require('discord.js');
 const { readdir } = require('fs').promises;
 const logger = require('./utils/logger.js');
-const { intents, partials } = require('./config.js');
+const { intents, partials, emojis } = require('./config.js');
 const sequelize = require('./db/connection.js');
 
 // Instantiate client
@@ -22,15 +22,19 @@ client.container = {
   commands,
   aliases,
   slashcmds,
+  emojis
 };
 
+/* TODO: Feature has been disabled, will re-enable when fixed
+* Works fine when testing, but breaks the bot when using on host
+*/
 // Find emoji by id or exact name
-client.getEmoji = (key) => {
-  if (typeof key !== 'string') throw new TypeError('Invalid emoji identifier');
-  const emoji = client.emojis.cache.find(e => (e.id === key || new RegExp(key).test(e.name)) && e.guild.id === process.env.EMOJI_GUILD);
-  if (!emoji) throw new Error('Emoji not found: '+ key);
-  return emoji;
-}
+// client.getEmoji = (key) => {
+//   if (typeof key !== 'string') throw new TypeError('Invalid emoji identifier');
+//   const emoji = client.emojis.cache.find(e => (e.id === key || new RegExp(key).test(e.name)) && e.guild.id === process.env.EMOJI_GUILD);
+//   if (!emoji) throw new Error('Emoji not found: '+ key);
+//   return emoji;
+// }
 
 // Init function
 const init = async () => {
