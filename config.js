@@ -30,11 +30,6 @@ const config = {
     success: '<:success:868928333101023232>',
     fail: '<:fail:868928333096824882>',
     warn: '<:fail:868928333096824882>',
-    betOption1: '<:betOption1:869114178386927687>',
-    betOption2: '<:betOption2:869114234083094558>',
-    betUsers1: '<:betUsers1:869067283643924540>',
-    betUsers2: '<:betUsers2:869067283748753458>',
-    medalWin: '<:medalWin:869067283748753458>',
   },
 }
 
