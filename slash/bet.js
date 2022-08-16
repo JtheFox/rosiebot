@@ -1,25 +1,15 @@
-const { isAdmin, pluralize } = require('../utils/helpers');
-const logger = require('../utils/logger');
+const { isAdmin, pluralize, embedBreak } = require('../utils/helpers.js');
+const logger = require('../utils/logger.js');
 const { EmbedBuilder } = require('discord.js');
 
 // TODO: Add close timer to bet create options
 // TODO: Add bet payouts
 // TODO: Refactor Bet class
 exports.run = async (client, interaction) => {
-  // Create emoji object
-  const emojis = {
-    success: client.getEmoji('success'),
-    fail: client.getEmoji('fail'),
-    medal: client.getEmoji('medalWin'),
-    op1: client.getEmoji('betOp1'),
-    op2: client.getEmoji('betOp2'),
-    users1: client.getEmoji('betUsers1'),
-    users2: client.getEmoji('betUsers2')
-  }
-
   // Initialize and descture variables
   const { embedColor } = interaction.settings;
   const { guildId, channelId, member, options } = interaction;
+  const { emojis } = client.container;
   let bet = global.bets.get(guildId) ?? { active: false, open: false };
   let replyIcon = emojis['success'];
   let replyMsg = '';
@@ -235,12 +225,14 @@ class Bet {
       .setDescription(`Active: ${this.active ? this.emojis['success'] : this.emojis['fail']}\nBetting: ${this.open ? 'Open' : 'Closed'}`)
       .addFields(
         {
-          name: `${this.emojis['op1']} ${this.optionOne.name}`,
-          value: `${this.emojis['users1']}  ${this.getBetters(1).length}`
+          name: `1️⃣ ${this.optionOne.name}`,
+          value: `👥 ${this.getBetters(1).length}`,
+          inline: true
         },
         {
-          name: `${this.emojis['op2']} ${this.optionTwo.name}`,
-          value: `${this.emojis['users2']} ${this.getBetters(2).length}`
+          name: `2️⃣ ${this.optionTwo.name}`,
+          value: `👥 ${this.getBetters(2).length}`,
+          inline: true
         }
       )
       .setFooter({ text: `Bet created by ${this.betOwner.user.tag}` })
@@ -253,7 +245,7 @@ class Bet {
         new EmbedBuilder()
           .setColor(this.embedColor)
           .setTitle(this.name)
-          .setDescription(`**Winner**\n${this.emojis['medal']} **${this.winner}** with ${this.emojis[`users${option}`]} ${winBetters} ${pluralize('better', winBetters)}`)
+          .setDescription(`**Winner**\n🏅 **${this.winner}** with 👥 ${winBetters} ${pluralize('better', winBetters)}`)
       ]
     })
   }

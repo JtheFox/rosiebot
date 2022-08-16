@@ -26,6 +26,11 @@ const config = {
       check: (message) => message.author.id === process.env.OWNER_ID
     },
   ],
+  emojis: {
+    success: '<:success:868928333101023232>',
+    fail: '<:fail:868928333096824882>',
+    warn: '<:fail:868928333096824882>',
+  },
 }
 
 module.exports = config;
