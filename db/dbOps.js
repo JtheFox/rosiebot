@@ -12,7 +12,6 @@ const ensureUser = async (userId) => {
     return user;
   } catch (err) {
     logger.error(err);
-    return err;
   }
 }
 
@@ -27,7 +26,6 @@ const ensureGuild = async (guildId) => {
     return guild;
   } catch (err) {
     logger.error(err);
-    return err;
   }
 }
 
@@ -42,7 +40,6 @@ const updateGuild = async (guildId, settings = {}) => {
     created ? logger.log('Guild added to database') : logger.log('Guild updated in database');
   } catch (err) {
     logger.error(err);
-    return err;
   }
 }
 
@@ -55,7 +52,6 @@ const ensureGuildMember = async (guildId, userId) => {
     if (!guild.hasUser(user)) await guild.addUser(user, { through: {} });
   } catch (err) {
     logger.error(err);
-    return err;
   }
 }
 
@@ -68,7 +64,6 @@ const deleteGuildMember = async (guildId, userId) => {
     if (guild.hasUser(user)) await guild.removeUser(user, { through: {} });
   } catch (err) {
     logger.error(err);
-    return err;
   }
 }
 
@@ -96,7 +91,6 @@ const payoutBet = async (guildId, winners = [], losers = []) => {
     logger.log('Bet has been paid out');
   } catch (err) {
     logger.error(err);
-    return err;
   }
 }
 
