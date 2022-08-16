@@ -32,9 +32,10 @@ client.getEmoji = (key) => {
   const rgxName = /^[A-Z0-9_-]+$/i;
   const emojis = client.emojis.cache;
   // Perform regex validation on the key and check client emoji cache for matching id/name
-  return rgxId.test(key) ?
+  const emoji = rgxId.test(key) ?
     emojis.get(key) :
-    rgxName.test(key) ? emojis.find(e => e.name === key && e.guild.id === process.env.EMOJI_GUILD) : new Error('Emoji not found');
+    rgxName.test(key) ? emojis.find(e => e.name === key && e.guild.id === process.env.EMOJI_GUILD) : new Error('Invalid emoji identifier');
+  return emoji || new Error('Emoji not found');
 }
 
 // Init function
