@@ -5,34 +5,13 @@ const logger = require('../utils/logger.js');
 const { Client } = require('discord.js');
 const { intents, partials } = require('../config.js');
 const client = new Client({ intents, partials });
+const { promptInput, promptContinue } = require('./utils.js');
 // Operations imports
 const { deployCmds, retrieveCmds } = require('./commands.js');
 const { leaveGuild, viewGuilds } = require('./guilds.js');
-const { viewEmojis } = require('./emojis.js');
+const { viewEmojis, searchEmoji } = require('./emojis.js');
 
 // Create internal operations to handle prompt inputs
-const exit = () => {
-  logger.log('Exiting operations');
-  process.exit(0);
-}
-
-const promptGuildId = async () => {
-  const guildId = await inquirer.prompt({
-    type: 'input',
-    name: 'value',
-    message: 'Enter the id of the guild for the bot to leave:'
-  });
-  return guildId.value;
-}
-
-const promptContinue = async () => {
-  await inquirer.prompt({
-    type: 'input',
-    name: 'value',
-    message: 'Press enter to continue'
-  });
-}
-
 const init = async () => {
   try {
     const choice = await inquirer.prompt({
@@ -60,15 +39,19 @@ const init = async () => {
         await viewGuilds(client);
         break;
       case 'leaveGuild':
-        const guildId = await promptGuildId();
+        const guildId = await promptInput('Enter the id of the guild for the bot to leave');
         await leaveGuild(client, guildId);
         break;
       case 'viewEmojis':
         await viewEmojis(client);
         break;
-      case 'exit':
-        exit();
+        case 'searchEmoji':
+        const searchKey = await promptInput('Enter the emoji id or name to search');
+        await searchEmoji(client, searchKey);
         break;
+      case 'exit':
+        logger.log('Exiting operations');
+        process.exit(0);
       default: throw new Error('No choice provided');
     }
 
