@@ -200,14 +200,7 @@ class Bet {
     this.emojis = emojis;
     this.updateEmbed();
     // Close bet after delay
-    setTimeout(() => {
-      if (!(this.active && this.open)) return
-      this.closeBet();
-      this.updateEmbed();
-      this.display.channel.send({
-        embeds: [new EmbedBuilder().setColor(this.embedColor).setTitle(this.name).setDescription('Betting is now closed')]
-      });
-    }, closeDelay);
+    setTimeout(() => this.closeBet(), closeDelay);
     // Auto end bet if active after 2 hours
     setTimeout(() => {
       if (this.active) this.endBet();
@@ -259,7 +252,12 @@ class Bet {
   }
 
   closeBet() {
+    if (!(this.active && this.open)) return;
     this.open = false;
+    this.display.channel.send({
+      embeds: [new EmbedBuilder().setColor(this.embedColor).setTitle(this.name).setDescription('Betting is now closed')]
+    });
+    this.updateEmbed();
   }
 
   memberHasBet(memberId) {
