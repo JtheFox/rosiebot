@@ -232,13 +232,13 @@ class Bet {
   }
 
   postResultsEmbed(option) {
-    const winBetters = this.getBetters(option).length;
+    const winBetters = option && this.getBetters(option).length;
     this.display.channel.send({
       embeds: [
         new EmbedBuilder()
           .setColor(this.embedColor)
           .setTitle(this.name)
-          .setDescription(`**Winner**\n🏅 **${this.winner}** with 👥 ${winBetters} ${pluralize('better', winBetters)}`)
+          .setDescription(!option ? 'The bet has been cancelled' : `**Winner**\n🏅 **${this.winner}**\n👥 ${winBetters} ${pluralize('better', winBetters)}`)
       ]
     })
   }
@@ -283,6 +283,7 @@ class Bet {
       case undefined:
         this.closeBet();
         this.active = false;
+        this.postResultsEmbed();
         this.updateEmbed();
         return true;
       case 1:
