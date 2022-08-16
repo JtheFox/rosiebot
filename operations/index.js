@@ -7,7 +7,8 @@ const { intents, partials } = require('../config.js');
 const client = new Client({ intents, partials });
 // Operations imports
 const { deployCmds, retrieveCmds } = require('./commands.js');
-const { leaveGuild, viewGuilds } = require('./guilds.js')
+const { leaveGuild, viewGuilds } = require('./guilds.js');
+const { viewEmojis } = require('./emojis.js');
 
 // Create internal operations to handle prompt inputs
 const exit = () => {
@@ -16,18 +17,18 @@ const exit = () => {
 }
 
 const promptGuildId = async () => {
-  const guildId = await inquirer.prompt({ 
-    type: 'input', 
-    name: 'value' ,
+  const guildId = await inquirer.prompt({
+    type: 'input',
+    name: 'value',
     message: 'Enter the id of the guild for the bot to leave:'
   });
   return guildId.value;
 }
 
 const promptContinue = async () => {
-  await inquirer.prompt({ 
-    type: 'input', 
-    name: 'value' ,
+  await inquirer.prompt({
+    type: 'input',
+    name: 'value',
     message: 'Press enter to continue'
   });
 }
@@ -43,6 +44,7 @@ const init = async () => {
         { name: 'View deployed slash commands', value: 'retrieveCmds' },
         { name: 'View guilds', value: 'viewGuilds' },
         { name: 'Leave guild', value: 'leaveGuild' },
+        { name: 'View emojis', value: 'viewEmojis' },
         { name: 'Exit', value: 'exit' }
       ]
     });
@@ -60,6 +62,9 @@ const init = async () => {
       case 'leaveGuild':
         const guildId = await promptGuildId();
         await leaveGuild(client, guildId);
+        break;
+      case 'viewEmojis':
+        await viewEmojis(client);
         break;
       case 'exit':
         exit();
