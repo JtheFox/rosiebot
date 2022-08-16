@@ -9,14 +9,26 @@ const { EmbedBuilder } = require('discord.js');
 // TODO: Improve bet result display
 // TODO: Refactor Bet class
 exports.run = async (client, interaction) => {
+  // Create emoji object
+  const emojis = {
+    success: client.getEmoji('success'),
+    fail: client.getEmoji('fail'),
+    medal: client.getEmoji('medalWin'),
+    op1: client.getEmoji('betOp1'),
+    op2: client.getEmoji('betOp2'),
+    users1: client.getEmoji('betUsers1'),
+    users2: client.getEmoji('betUsers2')
+  }
+
   // Initialize and descture variables
   const { embedColor } = interaction.settings;
   const { guildId, channelId, member, options } = interaction;
   let bet = global.bets.get(guildId) ?? { active: false, open: false };
-  let replyIcon = client.getEmoji('success');
+  let replyIcon = emojis['success'];
   let replyMsg = '';
+
   const setReply = (msg, error = false) => {
-    if (error) replyIcon = client.getEmoji('fail');
+    if (error) replyIcon = emojis['fail'];
     replyMsg = msg;
   }
 
@@ -31,7 +43,7 @@ exports.run = async (client, interaction) => {
         const disp = await client.channels.cache.get(channelId).send({
           embeds: [new EmbedBuilder().setColor(embedColor).setTitle('Creating bet...')]
         });
-        bet = new Bet(title.value, one.value, two.value, member, disp, embedColor);
+        bet = new Bet(title.value, one.value, two.value, member, disp, embedColor, emojis);
         setReply('Bet created successfully');
         break;
       case 'close':
@@ -192,7 +204,7 @@ class Bet {
   display;
   embedColor;
 
-  constructor(name, optionOne, optionTwo, member, msg, color, closeDelay = 1000 * 60 * 2) {
+  constructor(name, optionOne, optionTwo, member, msg, color, emojis, closeDelay = 1000 * 60 * 2) {
     this.name = name;
     this.optionOne = {
       name: optionOne,
@@ -208,6 +220,7 @@ class Bet {
     this.betOwner = member;
     this.display = msg;
     this.embedColor = color;
+    this.emojis = emojis;
     this.updateEmbed();
     // Close bet after delay
     setTimeout(() => {
@@ -229,24 +242,21 @@ class Bet {
   }
 
   getEmbed() {
-    const [activeStatus, bettingStatus] = [
-      
-    ]
     return new EmbedBuilder()
       .setColor(this.embedColor)
       .setTitle(this.name)
-      .setDescription(`Status: ${activeStatus} | Betting: ${bettingStatus}`)
+      .setDescription(`Active: ${this.active ? this.emojis['success'] : this.emojis['fail']}\nBetting: ${this.open ? 'Open' : 'Closed'}`)
       .addFields(
         {
-          name: `${client.getEmoji('betOp1')} ${this.optionOne.name}`,
-          value: `${client.getEmoji('betUsers1')}  ${this.getBetters(1).length} ${pluralize('better', this.getBetters(1))}`
+          name: `${this.emojis['op1']} ${this.optionOne.name}`,
+          value: `${this.emojis['users1']}  ${this.getBetters(1).length}`
         },
         {
-          name: `${client.getEmoji('betOp2')} ${this.optionTwo.name}`,
-          value: `${client.getEmoji('betUsers2')} ${this.getBetters(2).length} ${pluralize('better', this.getBetters(2))}`
+          name: `${this.emojis['op2']} ${this.optionTwo.name}`,
+          value: `${this.emojis['users2']} ${this.getBetters(2).length}`
         }
       )
-      .setFooter({ text: `Bet created by ${this.betOwner.tag}` })
+      .setFooter({ text: `Bet created by ${this.betOwner.user.tag}` })
   }
 
   postResultsEmbed(option) {
@@ -256,7 +266,7 @@ class Bet {
         new EmbedBuilder()
           .setColor(this.embedColor)
           .setTitle(this.name)
-          .setDescription(`Winner: **${this.winner}** with **${winBetters} ${pluralize('better', winBetters)}**`)
+          .setDescription(`**Winner**\n${this.emojis['medal']} **${this.winner}** with ${this.emojis[`users${option}`]} ${winBetters} ${pluralize('better', winBetters)}`)
       ]
     })
   }
