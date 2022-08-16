@@ -3,10 +3,7 @@ const logger = require('../utils/logger');
 const { EmbedBuilder } = require('discord.js');
 
 // TODO: Add close timer to bet create options
-// TODO: Change /bet on 1 | 2 to button interface
 // TODO: Add bet payouts
-// TODO: Improve bet status indicators
-// TODO: Improve bet result display
 // TODO: Refactor Bet class
 exports.run = async (client, interaction) => {
   // Create emoji object
