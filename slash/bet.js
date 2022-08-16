@@ -194,16 +194,6 @@ exports.cmd = {
 }
 
 class Bet {
-  name;
-  optionOne;
-  optionTwo;
-  open;
-  active;
-  winner;
-  betOwner;
-  display;
-  embedColor;
-
   constructor(name, optionOne, optionTwo, member, msg, color, emojis, closeDelay = 1000 * 60 * 2) {
     this.name = name;
     this.optionOne = {
