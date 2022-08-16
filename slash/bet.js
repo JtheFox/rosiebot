@@ -13,10 +13,10 @@ exports.run = async (client, interaction) => {
   const { embedColor } = interaction.settings;
   const { guildId, channelId, member, options } = interaction;
   let bet = global.bets.get(guildId) ?? { active: false, open: false };
-  let replyIcon = '✅';
+  let replyIcon = client.getEmoji('success');
   let replyMsg = '';
   const setReply = (msg, error = false) => {
-    replyIcon = error ? '❌' : '✅';
+    if (error) replyIcon = client.getEmoji('fail');
     replyMsg = msg;
   }
 
@@ -50,6 +50,10 @@ exports.run = async (client, interaction) => {
       case 'end':
         if (!bet.active) {
           setReply('There is no active bet to end', true);
+          break;
+        }
+        if (!bet.isBetAdmin) {
+          setReply('You must be an admin or the bet creator to end the bet');
           break;
         }
         const winner = options._hoistedOptions[0]?.value;
@@ -226,8 +230,7 @@ class Bet {
 
   getEmbed() {
     const [activeStatus, bettingStatus] = [
-      this.active ? 'Active' : 'Finished',
-      this.open ? 'Open' : 'Closed'
+      
     ]
     return new EmbedBuilder()
       .setColor(this.embedColor)
@@ -235,23 +238,25 @@ class Bet {
       .setDescription(`Status: ${activeStatus} | Betting: ${bettingStatus}`)
       .addFields(
         {
-          name: `1️⃣ ${this.optionOne.name}`,
-          value: `${this.getBetters(1).length} ${pluralize('better', this.getBetters(1))}`
+          name: `${client.getEmoji('betOp1')} ${this.optionOne.name}`,
+          value: `${client.getEmoji('betUsers1')}  ${this.getBetters(1).length} ${pluralize('better', this.getBetters(1))}`
         },
         {
-          name: `2️⃣ ${this.optionTwo.name}`,
-          value: `${this.getBetters(2).length} ${pluralize('better', this.getBetters(2))}`
+          name: `${client.getEmoji('betOp2')} ${this.optionTwo.name}`,
+          value: `${client.getEmoji('betUsers2')} ${this.getBetters(2).length} ${pluralize('better', this.getBetters(2))}`
         }
       )
+      .setFooter({ text: `Bet created by ${this.betOwner.tag}` })
   }
 
   postResultsEmbed(option) {
     const winBetters = this.getBetters(option).length;
     this.display.channel.send({
-      embeds: [new EmbedBuilder()
-        .setColor(this.embedColor)
-        .setTitle(this.name)
-        .setDescription(`Winner: **${this.winner}** with **${winBetters} ${pluralize('better', winBetters)}**`)
+      embeds: [
+        new EmbedBuilder()
+          .setColor(this.embedColor)
+          .setTitle(this.name)
+          .setDescription(`Winner: **${this.winner}** with **${winBetters} ${pluralize('better', winBetters)}**`)
       ]
     })
   }
