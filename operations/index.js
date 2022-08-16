@@ -9,7 +9,7 @@ const { promptInput, promptContinue } = require('./opsUtils.js');
 // Operations imports
 const { deployCmds, retrieveCmds } = require('./commands.js');
 const { leaveGuild, viewGuilds } = require('./guilds.js');
-const { viewEmojis, searchEmoji } = require('./emojis.js');
+const { viewEmojis, searchEmojis } = require('./emojis.js');
 
 // Create internal operations to handle prompt inputs
 const init = async () => {
@@ -24,6 +24,7 @@ const init = async () => {
         { name: 'View guilds', value: 'viewGuilds' },
         { name: 'Leave guild', value: 'leaveGuild' },
         { name: 'View emojis', value: 'viewEmojis' },
+        { name: 'Search emojis', value: 'searchEmojiss' },
         { name: 'Exit', value: 'exit' }
       ]
     });
@@ -45,9 +46,9 @@ const init = async () => {
       case 'viewEmojis':
         await viewEmojis(client);
         break;
-        case 'searchEmoji':
+      case 'searchEmojis':
         const searchKey = await promptInput('Enter the emoji id or name to search');
-        await searchEmoji(client, searchKey);
+        await searchEmojis(client, searchKey);
         break;
       case 'exit':
         logger.log('Exiting operations');

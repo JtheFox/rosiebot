@@ -10,7 +10,7 @@ exports.viewEmojis = async (client, limit = 50) => {
 }
 
 // Search emoji by id or name
-exports.searchEmoji = async (client, key) => {
+exports.searchEmojis = async (client, key) => {
   if (typeof key !== 'string') throw new TypeError('Invalid emoji identifier');
   const emoji = client.emojis.cache.find(e => [e.name, e.id].contains(key) && e.guild.id === process.env.EMOJI_GUILD);
   if (!emoji) throw new Error('Emoji not found ' + key);
