@@ -35,7 +35,8 @@ client.getEmoji = (key) => {
   const emoji = rgxId.test(key) ?
     emojis.get(key) :
     rgxName.test(key) ? emojis.find(e => e.name === key && e.guild.id === process.env.EMOJI_GUILD) : new Error('Invalid emoji identifier');
-  return emoji || new Error('Emoji not found');
+  if (!emoji) throw new Error('Emoji not found');
+  return emoji;
 }
 
 // Init function
