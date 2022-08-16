@@ -27,14 +27,8 @@ client.container = {
 // Add getEmoji function to client
 client.getEmoji = (key) => {
   if (typeof key !== 'string') throw new TypeError('Invalid emoji identifier');
-  // Throw error if provided key is not a string
-  const rgxId = /^\d{18}$/;
-  const rgxName = /^[A-Z0-9_-]+$/i;
-  const emojis = client.emojis.cache;
   // Perform regex validation on the key and check client emoji cache for matching id/name
-  const emoji = rgxId.test(key) ?
-    emojis.get(key) :
-    rgxName.test(key) ? emojis.find(e => e.name === key && e.guild.id === process.env.EMOJI_GUILD) : new Error('Invalid emoji identifier');
+  const emoji = client.emojis.cache.find(e => [e.name, e.id].contains(key) && e.guild.id === process.env.EMOJI_GUILD);
   if (!emoji) throw new Error('Emoji not found '+ key);
   return emoji;
 }
