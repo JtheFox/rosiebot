@@ -12,7 +12,8 @@ const sequelize = process.env.DB_ENV === 'local' ?
     {
       host: process.env.RDS_HOST,
       dialect: 'mysql',
-      port: process.env.RDS_PORT
+      port: process.env.RDS_PORT,
+      logging: false
     }
   );
 
