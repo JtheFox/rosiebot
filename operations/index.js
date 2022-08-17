@@ -1,7 +1,7 @@
 // Module imports
 require('dotenv').config();
 const inquirer = require('inquirer');
-const logger = require('../utils/logger.js');
+const logger = require('../utils/logger');
 const { Client } = require('discord.js');
 const { intents, partials } = require('../config.js');
 const client = new Client({ intents, partials });

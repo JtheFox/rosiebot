@@ -6,6 +6,7 @@ const Guild = sequelize.define('Guild', {
     type: DataTypes.STRING,
     allowNull: false,
     primaryKey: true,
+    required: true
   },
   prefix: {
     type: DataTypes.STRING,

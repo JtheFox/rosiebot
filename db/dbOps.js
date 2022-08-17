@@ -1,4 +1,4 @@
-const logger = require('../utils/logger.js');
+const logger = require('../utils/logger');
 const { Guild, User, GuildMember } = require('./models');
 const { Op } = require('sequelize');
 
@@ -60,9 +60,12 @@ const deleteGuild = async (guildId) => {
 // Precheck to find or create guild member in the join table
 const ensureGuildMember = async (guildId, userId) => {
   try {
+    await ensureGuild(guildId);
+    await ensureUser(userId);
     const [member, created] = await GuildMember.findOrCreate({ where: { guildId: guildId, userId: userId } })
     if (!member) throw new Error('Operation failed');
     logCreated(created, 'GuildMember');
+    return (member);
   } catch (err) {
     logger.error(err);
   }

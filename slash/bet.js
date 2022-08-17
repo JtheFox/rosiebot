@@ -1,4 +1,4 @@
-const logger = require('../utils/logger.js');
+const logger = require('../utils/logger');
 const { EmbedBuilder } = require('discord.js');
 const { isAdmin, pluralize, embedBreak } = require('../utils/helpers.js');
 const { ensureGuildMember, payoutBet } = require('../db/dbOps.js');

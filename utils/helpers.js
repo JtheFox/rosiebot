@@ -1,4 +1,4 @@
-const logger = require('../utils/logger.js');
+const logger = require('../utils/logger');
 const { Guild } = require('../db/models');
 
 // Catch and format logging of unhandled exceptions and rejections

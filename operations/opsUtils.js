@@ -1,5 +1,5 @@
 const inquirer = require('inquirer');
-const logger = require('../utils/logger.js');
+const logger = require('../utils/logger');
 
 module.exports = {
   // Get and return a single user input

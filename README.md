@@ -15,9 +15,10 @@ Rosiebot is a personal use discord bot- created with NodeJS, using AWS RDS for t
 
 ## Current Features
 - Slash commands
-- Per-guild persistent data
-- Betting with persistent score data
 - Bot management operations CLI
+- Persistent data
+  - Per-guild user profiles
+  - Betting with per-guild score data
 
 ## Commands
 `help` - Displays all commands or shows details for a specific command<br>
@@ -31,6 +32,9 @@ Rosiebot is a personal use discord bot- created with NodeJS, using AWS RDS for t
 ![List of available bet commands](./assets/cmd-bet1.png)<br>
 ![Creating and placing a bet with /bet](./assets/cmd-bet2.png)
 ![Closing and ending a bet with /bet](./assets/cmd-bet3.png)
+
+`/me` - Display your user profile on a server
+![Usage of the /me command](./assets/cmd-me.png)
 
 ## Future Updates
 **Features**:
