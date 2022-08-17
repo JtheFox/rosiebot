@@ -50,6 +50,13 @@ const updateGuild = async (guildId, settings = {}) => {
   }
 }
 
+const deleteGuild = async (guildId) => {
+  logger.log('Removing Guild from the database');
+  await GuildMember.destroy({ where: { guildId: guildId } });
+  await Guild.destroy({ where: { id: guildId } });
+  logger.log('Guild successfully removed from database');
+}
+
 // Precheck to find or create guild member in the join table
 const ensureGuildMember = async (guildId, userId) => {
   try {
@@ -64,10 +71,9 @@ const ensureGuildMember = async (guildId, userId) => {
 // Delete guild member from the join table
 const deleteGuildMember = async (guildId, userId) => {
   try {
-    const guild = await ensureGuild(guildId);
-    const user = await ensureUser(userId);
-    if (!guild || !user) throw new Error('Operation failed');
-    if (guild.hasUser(user)) await guild.removeUser(user, { through: {} });
+    logger.log('Removing GuildMember from the database');
+    await GuildMember.destroy({ where: { guildId: guildId, userId: userId } });
+    logger.log('GuildMember successfully removed from database');
   } catch (err) {
     logger.error(err);
   }
@@ -102,4 +108,4 @@ const payoutBet = async (guildId, [winners = [], losers = []]) => {
   }
 }
 
-module.exports = { ensureUser, ensureGuild, updateGuild, ensureGuildMember, deleteGuildMember, payoutBet }
+module.exports = { ensureUser, ensureGuild, updateGuild, deleteGuild, ensureGuildMember, deleteGuildMember, payoutBet }
