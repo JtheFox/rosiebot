@@ -63,6 +63,7 @@ const ensureGuildMember = async (guildId, userId) => {
     const [member, created] = await GuildMember.findOrCreate({ where: { guildId: guildId, userId: userId } })
     if (!member) throw new Error('Operation failed');
     logCreated(created, 'GuildMember');
+    return(member);
   } catch (err) {
     logger.error(err);
   }
