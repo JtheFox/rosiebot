@@ -10,6 +10,7 @@ const { promptInput, promptContinue } = require('./opsUtils.js');
 const { deployCmds, retrieveCmds } = require('./commands.js');
 const { leaveGuild, viewGuilds } = require('./guilds.js');
 const { viewEmojis, searchEmojis } = require('./emojis.js');
+const { forceSync } = require('./db.js');
 
 // Create internal operations to handle prompt inputs
 const init = async () => {
@@ -25,6 +26,7 @@ const init = async () => {
         { name: 'Leave guild', value: 'leaveGuild' },
         { name: 'View emojis', value: 'viewEmojis' },
         { name: 'Search emojis', value: 'searchEmojis' },
+        { name: 'Force sequelize sync', value: 'forceSync' },
         { name: 'Exit', value: 'exit' }
       ]
     });
@@ -49,6 +51,9 @@ const init = async () => {
       case 'searchEmojis':
         const searchKey = await promptInput('Enter the emoji id or name to search');
         await searchEmojis(client, searchKey);
+        break;
+      case 'forceSync':
+        await forceSync();
         break;
       case 'exit':
         logger.log('Exiting operations');
