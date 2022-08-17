@@ -83,7 +83,6 @@ const deleteGuildMember = async (guildId, userId) => {
 const payoutBet = async (guildId, [winners = [], losers = []]) => {
   try {
     const guild = await GuildMember.findAll()
-    logger.log(guild)
     winners.length && GuildMember.increment('betWins', {
       by: 1,
       where: {
