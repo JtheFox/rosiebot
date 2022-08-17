@@ -38,7 +38,7 @@ module.exports = {
     let page = 1;
     const getPageLabel = () => `Page ${page} of ${pages.length}` 
     while (page > 0 && page < pages.length - 1) {
-      logger.log([getPageLabel(), ...emojiPages[page - 1], getPageLabel()]);
+      logger.log([getPageLabel(), ...pages[page - 1], getPageLabel()]);
       const input = await inquirer.prompt({
         type: 'number',
         name: 'value',
