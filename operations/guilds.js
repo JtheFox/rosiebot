@@ -1,4 +1,4 @@
-const logger = require('../utils/logger.js');
+const logger = require('../utils/logger');
 const { paginate, navigatePages, arrayFromCollection } = require('./opsUtils.js');
 
 const parseGuilds = (guilds) => guilds.map(g => ({ name: g.name, id: g.id }))

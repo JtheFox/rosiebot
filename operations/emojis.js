@@ -1,4 +1,4 @@
-const logger = require('../utils/logger.js');
+const logger = require('../utils/logger');
 const { paginate, navigatePages, arrayFromCollection } = require('./opsUtils.js');
 
 const parseEmojis = (emojis) => emojis.map(e => ({ name: e.name, id: e.id, guild: e.guild.name }))

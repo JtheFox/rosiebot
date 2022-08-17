@@ -2,7 +2,7 @@
 require('dotenv').config();
 const { Client, Collection } = require('discord.js');
 const { readdir } = require('fs').promises;
-const logger = require('./utils/logger.js');
+const logger = require('./utils/logger');
 const { intents, partials, emojis } = require('./config.js');
 const sequelize = require('./db/connection.js');
 

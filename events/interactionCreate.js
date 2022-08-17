@@ -1,4 +1,4 @@
-const logger = require('../utils/logger.js');
+const logger = require('../utils/logger');
 const { getSettings } = require('../utils/helpers.js');
 
 module.exports = async (client, interaction) => {

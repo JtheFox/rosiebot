@@ -1,4 +1,4 @@
-const logger = require('../utils/logger.js');
+const logger = require('../utils/logger');
 const { Guild, User, GuildMember } = require('./models');
 const { Op } = require('sequelize');
 
