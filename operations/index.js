@@ -21,7 +21,7 @@ const init = async () => {
       message: 'What do you want to do?',
       choices: [
         { name: 'Deploy slash commands', value: 'deployCmds' },
-        { name: 'View deployed slash commands', value: 'retrieveCmds' },
+        // { name: 'View deployed slash commands', value: 'retrieveCmds' },
         { name: 'View guilds', value: 'viewGuilds' },
         { name: 'Leave guild', value: 'leaveGuild' },
         { name: 'View emojis', value: 'viewEmojis' },
