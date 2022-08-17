@@ -7,7 +7,7 @@ module.exports = async client => {
   try {
     logger.log('Ensuring default settings');
     const [def, created] = await Guild.upsert({
-      guildId: 'default',
+      id: 'default',
       ...defaultSettings
     });
     if (!def) throw new Error('Operation failed');

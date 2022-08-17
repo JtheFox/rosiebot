@@ -1,18 +1,23 @@
-const { Guild, User, GuildMember } = require('./models');
 const logger = require('../utils/logger.js');
+const { Guild, User, GuildMember } = require('./models');
+const { Op } = require('sequelize');
+
+const logCreated = (created, type) => {
+  logger.log(`${type} ${created ? 'added to' : 'found/updated in'} the database`)
+}
 
 // Precheck to find or create user in the database
 const ensureUser = async (userId) => {
   try {
     const [user, created] = await User.findOrCreate({
-      userId: userId
+      where: { id: userId },
+      include: Guild
     });
     if (!user) throw new Error('Operation failed');
-    created ? logger.log('User created') : logger.log('User found');
+    logCreated(created, 'User');
     return user;
   } catch (err) {
     logger.error(err);
-    return err;
   }
 }
 
@@ -20,14 +25,14 @@ const ensureUser = async (userId) => {
 const ensureGuild = async (guildId) => {
   try {
     const [guild, created] = await Guild.findOrCreate({
-      guildId: guildId
+      where: { id: guildId },
+      include: User
     });
     if (!guild) throw new Error('Operation failed');
-    created ? logger.log('Guild created') : logger.log('Guild found');
+    logCreated(created, 'Guild');
     return guild;
   } catch (err) {
     logger.error(err);
-    return err;
   }
 }
 
@@ -35,46 +40,49 @@ const ensureGuild = async (guildId) => {
 const updateGuild = async (guildId, settings = {}) => {
   try {
     const [guild, created] = await Guild.upsert({
-      guildId: guildId,
+      id: guildId,
       ...settings
     });
     if (!guild) throw new Error('Operation failed');
-    created ? logger.log('Guild added to database') : logger.log('Guild updated in database');
+    logCreated(created, 'Guild');
   } catch (err) {
     logger.error(err);
-    return err;
   }
+}
+
+const deleteGuild = async (guildId) => {
+  logger.log('Removing Guild from the database');
+  await GuildMember.destroy({ where: { guildId: guildId } });
+  await Guild.destroy({ where: { id: guildId } });
+  logger.log('Guild successfully removed from database');
 }
 
 // Precheck to find or create guild member in the join table
 const ensureGuildMember = async (guildId, userId) => {
   try {
-    const guild = await ensureGuild(guildId);
-    const user = await ensureUser(userId);
-    if (!guild || !user) throw new Error('Operation failed');
-    if (!guild.hasUser(user)) await guild.addUser(user, { through: {} });
+    const [member, created] = await GuildMember.findOrCreate({ where: { guildId: guildId, userId: userId } })
+    if (!member) throw new Error('Operation failed');
+    logCreated(created, 'GuildMember');
   } catch (err) {
     logger.error(err);
-    return err;
   }
 }
 
 // Delete guild member from the join table
 const deleteGuildMember = async (guildId, userId) => {
   try {
-    const guild = await ensureGuild(guildId);
-    const user = await ensureUser(userId);
-    if (!guild || !user) throw new Error('Operation failed');
-    if (guild.hasUser(user)) await guild.removeUser(user, { through: {} });
+    logger.log('Removing GuildMember from the database');
+    await GuildMember.destroy({ where: { guildId: guildId, userId: userId } });
+    logger.log('GuildMember successfully removed from database');
   } catch (err) {
     logger.error(err);
-    return err;
   }
 }
 
 // Update guild member data for betting feature
-const payoutBet = async (guildId, winners = [], losers = []) => {
+const payoutBet = async (guildId, [winners = [], losers = []]) => {
   try {
+    const guild = await GuildMember.findAll()
     winners.length && GuildMember.increment('betWins', {
       by: 1,
       where: {
@@ -96,8 +104,7 @@ const payoutBet = async (guildId, winners = [], losers = []) => {
     logger.log('Bet has been paid out');
   } catch (err) {
     logger.error(err);
-    return err;
   }
 }
 
-module.exports = { ensureUser, ensureGuild, updateGuild, ensureGuildMember, deleteGuildMember, payoutBet }
+module.exports = { ensureUser, ensureGuild, updateGuild, deleteGuild, ensureGuildMember, deleteGuildMember, payoutBet }
