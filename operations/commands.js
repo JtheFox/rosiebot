@@ -1,6 +1,7 @@
 require('dotenv').config();
 const logger = require('../utils/logger');
 const { readdir } = require('fs').promises;
+const path = require('node:path');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord.js');
 const rest = new REST({ version: '10' }).setToken(process.env.BOT_TOKEN);
@@ -9,17 +10,19 @@ const rest = new REST({ version: '10' }).setToken(process.env.BOT_TOKEN);
 exports.deployCmds = async () => {
   // Read slash directory
   const commands = [];
-  const cmdFiles = await readdir('./slash')
-  
+  const dirPath = path.join(__dirname, '..', 'slash');
+  const cmdFiles = await readdir(dirPath)
+
   // Load slash commands
   logger.log(`Loading ${cmdFiles.length} commands`);
-  cmdFiles.filter(file => file.endsWith('.js')).forEach(slash => {
+  cmdFiles.filter(file => file.endsWith('.js')).forEach(file => {
     try {
-      logger.log(`Loading Command: ${slash}`);
-      const { cmd } = require(`./slash/${slash}`);
+      logger.log(`Loading Command: ${file}`);
+      const filePath = path.join(dirPath, file)
+      const { cmd } = require(filePath);
       commands.push(cmd);
     } catch (err) {
-      logger.error(`Failed to load slash command ${slash}: ${err}`);
+      logger.error(`Failed to load slash command ${file}: ${err}`);
     }
   });
 
