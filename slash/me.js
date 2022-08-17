@@ -2,10 +2,11 @@ const logger = require('../utils/logger');
 const moment = require('moment');
 const { EmbedBuilder } = require('discord.js');
 const { ensureGuildMember } = require('../db/dbOps');
+const { embedBreak } = require('../utils/helpers');
 
 exports.run = async (client, interaction) => {
   // Initialize and descture variables
-  const { guild, member, user } = interaction;
+  const { guild, member, user, settings } = interaction;
   const { emojis } = client.container;
 
   try {
@@ -15,16 +16,15 @@ exports.run = async (client, interaction) => {
     await interaction.reply({
       embeds: [
         new EmbedBuilder()
-          .setAuthor({ name: member.nickname, iconURL: member.displayAvatarURL() })
-          .setTitle(user.name)
-          .setDescription(`User since ${moment(user.createdAt).format('LL')} (${moment(user.createdAt).fromNow()})`)
-          .setThumbnail(user.displayAvatarURL())
+          .setColor(settings.embedColor)
+          .setAuthor({ name: user.tag, iconURL: user.displayAvatarURL() })
+          .setDescription(`Member of **${guild.name}** since\n${moment(member.joinedAt).format('LL')} (${moment(member.joinedAt).fromNow()})`)
           .addFields(
-            { name: 'Betting' },
-            { name: 'Wins', value: `${betWins}`, inline: true },
-            { name: 'Losses', value: `${betLosses}`, inline: true },
+            { ...embedBreak, inline: true },
+            { name: 'Betting', value: `Wins: ${betWins}\nLosses: ${betLosses}`, inline: true },
+            { ...embedBreak, inline: true },
           )
-          .setFooter({ name: `Member of ${guild.name} since ${moment(member.joinedAt).format('LL')}`, iconURL: guild.iconURL() })
+          .setFooter({ text: `User since ${moment(user.createdAt).format('LL')}`, iconURL: guild.iconURL() })
       ]
     })
   } catch (err) {
