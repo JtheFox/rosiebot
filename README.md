@@ -33,7 +33,7 @@ Rosiebot is a personal use discord bot- created with NodeJS, using AWS RDS for t
 ![Creating and placing a bet with /bet](./assets/cmd-bet2.png)
 ![Closing and ending a bet with /bet](./assets/cmd-bet3.png)
 
-`/me` - Display your user profile on a server
+`/me` - Display your user profile on a server<br>
 ![Usage of the /me command](./assets/cmd-me.png)
 
 ## Future Updates
