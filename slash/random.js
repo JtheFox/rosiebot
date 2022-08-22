@@ -1,24 +1,35 @@
 const { getAllChampions, getAllItems } = require('../utils/ddragon.js');
-const { arrayRandom } = require('../utils/helpers.js');
+const { arrayRandom, indexRandom } = require('../utils/helpers.js');
 const { EmbedBuilder } = require('discord.js');
 
 exports.run = async (client, interaction) => {
   const replyEmbed = new EmbedBuilder();
-  console.log(interaction.options)
 
   switch (interaction.options._subcommand) {
     case 'champion':
       const champList = await getAllChampions();
-      const randChamp = arrayRandom(champList);
+      const { name, title, version, id } = arrayRandom(champList);
       replyEmbed
-        .setColor(message.settings.embedColor)
-        .setTitle(randChamp.name)
-        .setDescription(randChamp.title.charAt(0).toUpperCase() + randChamp.title.slice(1))
-        .setThumbnail(`http://ddragon.leagueoflegends.com/cdn/${randChamp.version}/img/champion/${randChamp.id}.png`);
+        .setColor(interaction.settings.embedColor)
+        .setAuthor({ name: 'View on U.GG', url: `https://u.gg/lol/champions/${name.replace(' ', '')}/build` })
+        .setTitle(name)
+        .setDescription(title.charAt(0).toUpperCase() + title.slice(1))
+        .setThumbnail(`http://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${id}.png`);
       break;
     case 'items':
+      const getImgUrl = ({ image }) => `http://ddragon.leagueoflegends.com/cdn/${global.ddragVersion}/img/item/${image.full}`
       const items = await getAllItems();
-      console.log(items)
+      const { boots, mythic, legendary } = items;
+      const build = [];
+      build.push(getImgUrl(arrayRandom(boots)));
+      build.push(getImgUrl(arrayRandom(mythic)));
+      const legendaryBuild = Array.from(legendary);
+      for (let i = 0; i < 4; i++) {
+        randInd = indexRandom(legendaryBuild);
+        const [item] = legendaryBuild.splice(randInd, 1);
+        build.push(getImgUrl(item));
+      }
+      console.log(build)
       break;
     case 'runes':
       break;
