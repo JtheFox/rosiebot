@@ -5,6 +5,8 @@ const { readdir } = require('fs').promises;
 const logger = require('./utils/logger');
 const { intents, partials, emojis } = require('./config.js');
 const sequelize = require('./db/connection.js');
+const cron = require('node-cron');
+const ddragon = require('./utils/ddragon');
 
 // Instantiate client
 const client = new Client({ intents, partials });
@@ -81,17 +83,22 @@ const init = async () => {
 
   // Ensure database connection
   try {
-    await sequelize.authenticate();
-    logger.log('Connection to the database has been established successfully.');
+    await sequelize.sync({ force: false });
+    logger.log('Database connection and sync successful.');
   } catch (error) {
     logger.error(['Unable to connect to the database:', error]);
     process.exit(1);
   }
 
-  // Login the client after connection to db
-  sequelize.sync({ force: false }).then(async () => {
-    await client.login(process.env.BOT_TOKEN);
+  // Schedule LoL version checker
+  global.ddragVersion = await ddragon.getLatestVersion();
+  cron.schedule('* * * * Thursday', async () => {
+    console.log('Checking for new LoL game version');
+    global.ddragVersion = await ddragon.getLatestVersion();
   });
+
+  // Login the client
+  await client.login(process.env.BOT_TOKEN);
 }
 
 init();
