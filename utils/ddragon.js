@@ -15,7 +15,7 @@ module.exports = {
     const allItems = Object.values(res.data.data);
     return {
       boots: allItems.filter(({ tags, depth }) => tags.includes('Boots') && depth === 2),
-      mythic: allItems.filter(({ description }) => description.includes('Mythic')),
+      mythic: allItems.filter(({ description }) => description.includes('Mythic') && !description.includes('ornnBonus')),
       legendary: allItems.filter(({ description, depth }) => !description.includes('Mythic') && depth === 3)
     }
   },
