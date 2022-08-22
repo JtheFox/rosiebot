@@ -40,6 +40,7 @@ Rosiebot is a personal use discord bot- created with NodeJS, using AWS RDS for t
 **Features**:
 - Ability to set the bet close timer in slash command options
 - Website for the bot
+- Caching for third-party api data
 
 **Commands**:
 - Change bot command prefix
