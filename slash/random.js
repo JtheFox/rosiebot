@@ -1,6 +1,8 @@
 const { getAllChampions, getAllItems } = require('../utils/ddragon.js');
 const { arrayRandom, indexRandom } = require('../utils/helpers.js');
-const { EmbedBuilder } = require('discord.js');
+const { EmbedBuilder, AttachmentBuilder } = require('discord.js');
+const { joinImages } = require('join-images');
+const axios = require('axios');
 
 exports.run = async (client, interaction) => {
   const replyEmbed = new EmbedBuilder();
@@ -15,6 +17,7 @@ exports.run = async (client, interaction) => {
         .setTitle(name)
         .setDescription(title.charAt(0).toUpperCase() + title.slice(1))
         .setThumbnail(`http://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${id}.png`);
+      await interaction.reply({ embeds: [replyEmbed] });
       break;
     case 'items':
       const getImgUrl = ({ image }) => `http://ddragon.leagueoflegends.com/cdn/${global.ddragVersion}/img/item/${image.full}`
@@ -29,14 +32,19 @@ exports.run = async (client, interaction) => {
         const [item] = legendaryBuild.splice(randInd, 1);
         build.push(getImgUrl(item));
       }
-      console.log(build)
+      const buffers = await Promise.all(build.map(async (url) => {
+        const response = await axios.get(url, { responseType: 'arraybuffer' });
+        return response.data;
+      }));
+      const buildImg = await joinImages(buffers);
+      const att = await buildImg.toFile('build.png');
+      console.log(att)
+      await interaction.reply({ content: 'Build', files: [att] });
       break;
     case 'runes':
       break;
     default: throw new Error('Invalid option');
   }
-
-  await interaction.reply({ embeds: [replyEmbed] });
 }
 
 exports.cmd = {
