@@ -38,6 +38,8 @@ module.exports = {
   },
   // Get random element from array
   arrayRandom: (arr) => arr[Math.floor(Math.random() * arr.length)],
+  // Get random index of array
+  indexRandom: (arr) => Math.floor(Math.random() * arr.length),
   // Check if user has admin perms
   isAdmin: (member) => member.permissions.has('ADMINISTRATOR'),
   // Empty line in Discord embed
