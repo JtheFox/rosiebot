@@ -5,14 +5,13 @@ const { joinImages } = require('join-images');
 const axios = require('axios');
 
 exports.run = async (client, interaction) => {
-  const replyEmbed = new EmbedBuilder();
+  const replyEmbed = new EmbedBuilder().setColor(interaction.settings.embedColor);
 
   switch (interaction.options._subcommand) {
     case 'champion':
       const champList = await getAllChampions();
       const { name, title, version, id } = arrayRandom(champList);
       replyEmbed
-        .setColor(interaction.settings.embedColor)
         .setAuthor({ name: 'View on U.GG', url: `https://u.gg/lol/champions/${name.replace(' ', '')}/build` })
         .setTitle(name)
         .setDescription(title.charAt(0).toUpperCase() + title.slice(1))
@@ -38,7 +37,11 @@ exports.run = async (client, interaction) => {
       }));
       const buildImg = await joinImages(buffers, { direction: 'horizontal' });
       await buildImg.toFile('assets/build.png');
-      await interaction.reply({ content: 'Build', files: [new AttachmentBuilder('./assets/build.png')] });
+      const buildAtt = new AttachmentBuilder('./assets/build.png');
+      replyEmbed
+        .setTitle('Your Epic Awesome Build')
+        .setImage('attachment://build.png');
+      await interaction.reply({ embeds: [replyEmbed], files: [buildAtt] });
       break;
     case 'runes':
       break;
