@@ -1,17 +1,13 @@
-const fetch = require('node-fetch');
+const axios = require('axios');
 const domain = 'http://ddragon.leagueoflegends.com';
-const getLatestVersion = async () => {
-  const response = await fetch(`${domain}/api/versions.json`);
-  const versions = await response.json();
-  return versions[0];
-}
 
 module.exports = {
+  getLatestVersion: async () => {
+    const res = await axios.get(`${domain}/api/versions.json`);
+    return res.data[0];
+  },
   getAllChampions: async () => {
-    const ver = await getLatestVersion();
-    const url = `${domain}/cdn/${ver}/data/en_US/champion.json`
-    const response = await fetch(url);
-    const champions = await response.json();
-    return Object.values(champions.data);
+    const res = await axios.get(`${domain}/cdn/${global.ddragVersion}/data/en_US/champion.json`);
+    return Object.values(res.data.data);
   }
 }
