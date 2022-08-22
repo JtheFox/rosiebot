@@ -36,10 +36,9 @@ exports.run = async (client, interaction) => {
         const response = await axios.get(url, { responseType: 'arraybuffer' });
         return response.data;
       }));
-      const buildImg = await joinImages(buffers);
-      const att = await buildImg.toFile('build.png');
-      console.log(att)
-      await interaction.reply({ content: 'Build', files: [att] });
+      const buildImg = await joinImages(buffers, { direction: 'horizontal' });
+      await buildImg.toFile('assets/build.png');
+      await interaction.reply({ content: 'Build', files: [new AttachmentBuilder('./assets/build.png')] });
       break;
     case 'runes':
       break;
