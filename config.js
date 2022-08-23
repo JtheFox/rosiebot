@@ -29,7 +29,9 @@ const config = {
   emojis: {
     success: '<:success:868928333101023232>',
     fail: '<:fail:868928333096824882>',
-    warn: '<:fail:868928333096824882>',
+    warn: '<:warn:868929112188801024>',
+    heads: '<:coinHeads:1011720824752980029>',
+    tails: '<:coinTails:869365410695372840>',
   },
 }
 

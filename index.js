@@ -27,17 +27,6 @@ client.container = {
   emojis
 };
 
-/* TODO: Feature has been disabled, will re-enable when fixed
-* Works fine when testing, but breaks the bot when using on host
-*/
-// Find emoji by id or exact name
-// client.getEmoji = (key) => {
-//   if (typeof key !== 'string') throw new TypeError('Invalid emoji identifier');
-//   const emoji = client.emojis.cache.find(e => (e.id === key || new RegExp(key).test(e.name)) && e.guild.id === process.env.EMOJI_GUILD);
-//   if (!emoji) throw new Error('Emoji not found: '+ key);
-//   return emoji;
-// }
-
 // Init function
 const init = async () => {
   // Read commands and events directories
