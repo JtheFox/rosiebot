@@ -15,7 +15,7 @@ process.on('unhandledRejection', err => {
 module.exports = {
   // Get default or guild settings
   getSettings: async (guild) => {
-    const id = !guild ? 
+    const id = !guild ?
       undefined :
       typeof guild === 'string' ? guild : guild.id
     const options = { raw: true, nest: true };
@@ -49,5 +49,10 @@ module.exports = {
     const len = typeof length === 'number' ? length : length.length;
     str += len === 1 ? '' : 's';
     return str;
-  },    
+  },
+  countArray: (arr) => {
+    return arr.reduce((acc, curr) => {
+      return acc[curr] ? ++acc[curr] : acc[curr] = 1, acc
+    }, {});
+  }
 }
