@@ -15,7 +15,7 @@ exports.run = async (client, interaction) => {
         .setAuthor({ name: 'View on U.GG', url: `https://u.gg/lol/champions/${name.replace(' ', '')}/build` })
         .setTitle(name)
         .setDescription(title.charAt(0).toUpperCase() + title.slice(1))
-        .setThumbnail(`http://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${id}.png`);
+        .setThumbnail(`http://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${id}.png`)
       await interaction.reply({ embeds: [replyEmbed] });
       break;
     case 'items':
@@ -23,13 +23,19 @@ exports.run = async (client, interaction) => {
       const items = await getAllItems();
       const { boots, mythic, legendary } = items;
       const build = [];
-      build.push(getImgUrl(arrayRandom(boots)));
-      build.push(getImgUrl(arrayRandom(mythic)));
+      let buildName = '';
+      let randInd = indexRandom(boots);
+      build.push(getImgUrl(boots[randInd]));
+      buildName += '🥾 ' + boots[randInd].name + '\n';
+      randInd = indexRandom(mythic);
+      build.push(getImgUrl(mythic[randInd]));
+      buildName += '👑 ' + mythic[randInd].name + '\n';
       const legendaryBuild = Array.from(legendary);
       for (let i = 0; i < 4; i++) {
         randInd = indexRandom(legendaryBuild);
         const [item] = legendaryBuild.splice(randInd, 1);
         build.push(getImgUrl(item));
+        buildName += '⚔ ' + item.name + '\n';
       }
       const buffers = await Promise.all(build.map(async (url) => {
         const response = await axios.get(url, { responseType: 'arraybuffer' });
@@ -39,8 +45,8 @@ exports.run = async (client, interaction) => {
       await buildImg.toFile('assets/build.png');
       const buildAtt = new AttachmentBuilder('./assets/build.png');
       replyEmbed
-        .setTitle('Your Epic Awesome Build')
-        .setImage('attachment://build.png');
+        .setTitle(buildName)
+        .setImage('attachment://build.png')
       await interaction.reply({ embeds: [replyEmbed], files: [buildAtt] });
       break;
     case 'runes':
