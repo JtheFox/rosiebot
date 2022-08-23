@@ -3,7 +3,7 @@ require('dotenv').config();
 const { Client, Collection } = require('discord.js');
 const { readdir } = require('fs').promises;
 const logger = require('./utils/logger');
-const { intents, partials, emojis } = require('./config.js');
+const { intents, partials, customEmojis } = require('./config.js');
 const sequelize = require('./db/connection.js');
 const cron = require('node-cron');
 const ddragon = require('./utils/ddragon');
@@ -15,6 +15,13 @@ const client = new Client({ intents, partials });
 const commands = new Collection();
 const aliases = new Collection();
 const slashcmds = new Collection();
+
+// Emoji search function
+const emojis = (key) => {
+  return Object.keys(customEmojis).includes(key) ?
+    client.emojis.cache.get(customEmojis[key]) :
+    client.emojis.cache.find(e => e.name === key || e.id === key);
+}
 
 // Create map for guild bets
 global.bets = new Map();

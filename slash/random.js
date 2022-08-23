@@ -1,5 +1,5 @@
 const { getAllChampions, getAllItems } = require('../utils/ddragon.js');
-const { arrayRandom, indexRandom, countArray } = require('../utils/helpers.js');
+const { arrayRandom, indexRandom, countArray, pluralize } = require('../utils/helpers.js');
 const { EmbedBuilder, AttachmentBuilder } = require('discord.js');
 const { joinImages } = require('join-images');
 const axios = require('axios');
@@ -67,6 +67,8 @@ exports.run = async (client, interaction) => {
     // Flip a coin <1-50> times, default 1
     case 'coinflip':
       const flip = () => Math.ceil(Math.random() * 2);
+      const emojiH = emojis('heads');
+      const emojiT = emojis('tails');
       const flipsInput = _hoistedOptions[0]?.value;
       const numFlips = flipsInput > 0 && flipsInput <= 50 ? flipsInput : 1;
       const flipResults = [];
@@ -74,13 +76,15 @@ exports.run = async (client, interaction) => {
       if (flipResults.length === 1) {
         const flipValue = flipResults[0] === 1 ? 'heads' : 'tails';
         replyEmbed
-          .setTitle(`You got ${flipValue}`)
-          .setDescription(emojis[flipValue])
+          .setTitle(`Flipped a coin and got ${flipValue}`)
+          .setThumbnail(`https://cdn.discordapp.com/emojis/${emojis(flipValue).id}.webp?size=44`)
       } else {
-        replyEmbed.setDescription(flipResults.map(r => r === 1 ? emojis['heads'] : emojis['tails']).join(''));
+        replyEmbed.setDescription(flipResults.map(r => r === 1 ? emojiH : emojiT).join(''));
         flipResults.sort((a, b) => a - b);
         const flipCount = countArray(flipResults);
-        replyEmbed.addFields([{ name: 'Results', value: `Heads: ${flipCount['1'] || 0}\nTails: ${flipCount['2'] || 0}` }]);
+        replyEmbed
+          .setTitle(`Flipped a coin ${flipResults.length} times`)
+          .addFields([{ name: 'Results', value: `Heads: ${emojiH}x${flipCount['1'] || 0}\nTails: ${emojiT}x${flipCount['2'] || 0}` }]);
       }
       break;
     // Roll <3-20>-sided die <1-50> times, default 2
@@ -96,7 +100,9 @@ exports.run = async (client, interaction) => {
       rollsInput ??= 2;
       const rollResults = [];
       for (let i = 0; i < rollsInput; i++) rollResults.push(roll(sidesInput));
-      replyEmbed.setDescription(rollResults.map(n => `[${n}]`).join(''));
+      replyEmbed
+        .setTitle(`Rolled a ${sidesInput}-sided die ${rollResults.length} ${pluralize('time', rollResults)}`)
+        .setDescription(rollResults.map(n => `[${n}]`).join(''));
       if (rollResults.length > 5) { // Display bar chart if more than 10 results
         rollResults.sort((a, b) => a - b);
         const rollCount = countArray(rollResults);
@@ -111,7 +117,7 @@ exports.run = async (client, interaction) => {
     default: throw new Error('Invalid option');
   }
 
-  await interaction.reply({ embeds: [replyEmbed], files: replyFiles })
+  await interaction.reply({ embeds: [replyEmbed], files: replyFiles });
 }
 
 exports.cmd = {
@@ -149,7 +155,7 @@ exports.cmd = {
         {
           "type": 4,
           "name": "sides",
-          "description": "Number of sides on the die (3-20, default 6)"
+          "description": "Number of sides on the die (4-20, default 6)"
         },
         {
           "type": 4,
