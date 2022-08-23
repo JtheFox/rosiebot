@@ -12,11 +12,11 @@ exports.run = async (client, interaction) => {
   const { guildId, channelId, member, options } = interaction;
   const { emojis } = client.container;
   let bet = global.bets.get(guildId) ?? { active: false, open: false };
-  let replyIcon = emojis['success'];
+  let replyIcon = emojis('success');
   let replyMsg = '';
 
   const setReply = (msg, error = false) => {
-    if (error) replyIcon = emojis['fail'];
+    if (error) replyIcon = emojis('fail');
     replyMsg = msg;
   }
 
@@ -31,7 +31,8 @@ exports.run = async (client, interaction) => {
         const disp = await client.channels.cache.get(channelId).send({
           embeds: [new EmbedBuilder().setColor(embedColor).setTitle('Creating bet...')]
         });
-        bet = new Bet(title.value, one.value, two.value, member, disp, embedColor, emojis);
+        const betEmojis = { success: emojis('success'), fail: emojis('fail') };
+        bet = new Bet(title.value, one.value, two.value, member, disp, embedColor, betEmojis);
         setReply('Bet created successfully');
         break;
       case 'close':

@@ -29,7 +29,7 @@ exports.run = async (client, interaction) => {
     })
   } catch (err) {
     logger.error(err);
-    await interaction.reply({ content: `${emojis['fail']} An error occurred while running this command`, ephemeral: true })
+    await interaction.reply({ content: `${emojis('fail')} An error occurred while running this command`, ephemeral: true })
   }
 }
 

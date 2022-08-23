@@ -45,5 +45,4 @@ Rosiebot is a personal use discord bot- created with NodeJS, using AWS RDS for t
 **Commands**:
 - Change bot command prefix
 - Duel command between 2 users
-- Flip a coin 
 - Rock, paper, scissors between 2 users
