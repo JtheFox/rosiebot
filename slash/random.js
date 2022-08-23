@@ -30,10 +30,14 @@ exports.run = async (client, interaction) => {
       randInd = indexRandom(mythic);
       build.push(getImgUrl(mythic[randInd]));
       buildName += '👑 ' + mythic[randInd].name + '\n';
-      const legendaryBuild = Array.from(legendary);
+      let legendaryItems = legendary.filter(({ name }) => name !== 'The Golden Spatula');
+      const manaItems = ["Winter's Approach", "Manamune", "Archangel's Staff"];
+      const penItems = ["Serylda's Grudge", "Lord Dominik's Regards"];
       for (let i = 0; i < 4; i++) {
-        randInd = indexRandom(legendaryBuild);
-        const [item] = legendaryBuild.splice(randInd, 1);
+        randInd = indexRandom(legendaryItems);
+        const [item] = legendaryItems.splice(randInd, 1);
+        if (manaItems.includes(item)) legendaryItems = legendaryItems.filter(({ name }) => manaItems.includes(name));
+        if (penItems.includes(item)) legendaryItems = legendaryItems.filter(({ name }) => penItems.includes(name));
         build.push(getImgUrl(item));
         buildName += '⚔ ' + item.name + '\n';
       }
