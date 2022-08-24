@@ -1,4 +1,6 @@
 body {
+  margin: 0;
+  padding: 0;
   background-color: rgb(224, 240, 255);
 }
 
@@ -25,12 +27,13 @@ body {
   margin-top: .125rem;
   margin-left: .3125rem;
   color: rgba(0, 0, 0, .65);
+  text-decoration: none;
 }
 
 .bd-aside a:hover,
 .bd-aside a:focus {
   color: rgba(0, 0, 0, .85);
-  background-color: rgba(199, 199, 199, 0.2);
+  text-decoration: underline !important;
 }
 
 .bd-aside a:focus {
