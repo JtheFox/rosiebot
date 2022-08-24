@@ -21,20 +21,7 @@ Rosiebot is a personal use discord bot- created with NodeJS, using AWS RDS for t
   - Betting with per-guild score data
 
 ## Commands
-`help` - Displays all commands or shows details for a specific command<br>
-![Basic usage of the help command](./assets/cmd-help1.png)
-![Usage of the help command for a specific command](./assets/cmd-help2.png)
-
-`random` - Generates a random League of Legends champion<br>
-![Usage of the random command](./assets/cmd-random.png)
-
-`/bet` - Betting feature interface<br>
-![List of available bet commands](./assets/cmd-bet1.png)<br>
-![Creating and placing a bet with /bet](./assets/cmd-bet2.png)
-![Closing and ending a bet with /bet](./assets/cmd-bet3.png)
-
-`/me` - Display your user profile on a server<br>
-![Usage of the /me command](./assets/cmd-me.png)
+See [the docs](https://github.com/JtheFox/rosiebot/tree/main/docs) for more
 
 ## Future Updates
 **Features**:
