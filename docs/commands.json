@@ -1,0 +1,28 @@
+{
+  "prefix": ".rosie ",
+  "command": {
+    "name": "",
+    "subcommands": [
+      {
+        "name": "",
+        "description": "",
+        "options": [],
+        "image": {
+          "src": "",
+          "alt": ""
+        }
+      }
+    ]
+  },
+  "option": {
+    "name": "",
+    "required": true,
+    "description": ""
+  },
+  "slash_commands": [
+
+  ],
+  "regular_commands": [
+
+  ]
+}
