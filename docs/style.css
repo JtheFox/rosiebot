@@ -117,3 +117,9 @@ body {
 .command-details :is(p, ul)[class*="col-"] {
   margin-bottom: 0.5rem;
 }
+
+.command-details img {
+  padding: 0 !important;
+  border-radius: 1.5rem;
+  border: 0.25rem solid white;
+}
