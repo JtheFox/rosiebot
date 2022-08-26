@@ -80,8 +80,7 @@
         </nav>
       </aside>
       <section id="docs" class="col-12 col-md-9 py-md-2">
-        <article id="about"
-          class="d-flex flex-column flex-md-row justify-content-md-between align-items-center">
+        <article id="about" class="d-flex flex-column flex-md-row justify-content-md-between align-items-center">
           <div class="col-md-8 text-center text-md-start">
             <h2>About Rosiebot</h2>
             <p>
@@ -101,10 +100,68 @@
           </div>
         </article>
         <article id="slash-commands">
-
+          <h2>Slash Commands</h2>
+          <div class="command-type mt-4">
+            <h4 id="slash-bet" class="mb-3">Bet</h4>
+            <div class="command d-flex flex-column flex-md-row">
+              <code class="command-syntax col-3">/bet create</code>
+              <div class="command-details col-9">
+                <div class="mb-1">
+                  <span class="fw-semibold">Description:&nbsp;&nbsp;</span>Create a new bet with a title and two
+                  options.
+                </div>
+                <div class="row">
+                  <p class="col-2 fw-semibold">Description:</p>
+                  <p class="col-10">Create a new bet with a title and two
+                    options.</p>
+                </div>
+                <div class="row">
+                  <p class="col-2 fw-semibold">Options:</p>
+                  <ul class="list-unstyled col-10">
+                    <li class="d-flex">
+                      <div class="col-3">
+                        <code class="command-option">
+                          title<small class="ps-2 pe-3 text-danger">required</small>
+                        </code>
+                      </div>
+                      <div class="col-9">
+                        <small>
+                          Title of the bet
+                        </small>
+                      </div>
+                    </li>
+                    <li class="d-flex text-nowrap">
+                      <div class="col-3">
+                        <code class="command-option">
+                          option1<small class="ps-2 pe-3 text-danger">required</small>
+                        </code>
+                      </div>
+                      <div class="col-9">
+                        <small>
+                          Name of the first bet option
+                        </small>
+                      </div>
+                    </li>
+                    <li class="d-flex text-nowrap">
+                      <div class="col-3">
+                        <code class="command-option">
+                          option2<small class="ps-2 pe-3 text-danger">required</small>
+                        </code>
+                      </div>
+                      <div class="col-9">
+                        <small>
+                          Name of the second bet option
+                        </small>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
         </article>
         <article id="regular-commands">
-
+          <h2>Regular Commands</h2>
         </article>
       </section>
     </main>
