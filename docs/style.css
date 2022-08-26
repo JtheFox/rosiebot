@@ -114,6 +114,6 @@ body {
   color: rgb(100, 100, 100);
 }
 
-.command-details p[class*="col-"] {
-  margin-bottom: 0.25rem;
+.command-details :is(p, ul)[class*="col-"] {
+  margin-bottom: 0.5rem;
 }
