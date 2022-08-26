@@ -8,6 +8,7 @@ body {
   width: 10px;
 }
 
+/* Navbar */
 .bd-heading a::before {
   display: inline-block;
   width: 1em;
@@ -71,4 +72,24 @@ body {
 
 .bd-aside .btn[aria-expanded="true"]::before {
   transform: rotate(90deg);
+}
+
+/* About section */
+#bot-status[data-status="pending"]::after {
+  color: gray;
+  content: "🔃Pending";
+}
+
+#bot-status[data-status="online"] {
+  color: green;
+  content: "✅Online";
+}
+
+#bot-status[data-status="offline"] {
+  color: red;
+  content: "❌Offline";
+}
+
+:is(#bot-users, #bot-servers) {
+  color: rgb(0, 98, 131);
 }

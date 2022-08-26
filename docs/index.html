@@ -14,8 +14,8 @@
 <body>
   <div class="container">
     <div class="row">
-      <header class="d-flex flex-wrap justify-content-center py-3 border-bottom">
-        <div class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+      <header class="d-flex flex-wrap justify-content-center pt-3 pb-0 pb-md-3">
+        <div class="d-flex align-items-center me-md-auto text-dark text-decoration-none">
           <img class="rounded-circle me-2" src="../assets/icons/rosiebot-icon.png" alt="Rosiebot Icon" width="44"
             height="44" />
           <span class="fs-4 fw-semibold">Rosiebot</span>
@@ -42,13 +42,18 @@
       </header>
     </div>
     <main class="row py-md-3">
-      <aside class="col-12 col-md-3 bd-aside sticky-xl-top text-muted">
+      <aside class="col-12 col-md-3 bd-aside sticky-xl-top just">
         <nav class="navbar">
           <ul class="list-unstyled">
+            <li class="fw-semibold">
+              <a class="d-inline-flex align-items-center rounded text-decoration-none" href="#about">
+                About
+              </a>
+            </li>
             <li class="my-2">
               <button class="btn d-inline-flex align-items-center collapsed border-0" data-bs-toggle="collapse"
                 aria-expanded="false" data-bs-target="#contents-collapse" aria-controls="contents-collapse">
-                Contents
+                Slash Commands
               </button>
               <ul class="list-unstyled ps-3 collapse" id="contents-collapse">
                 <li>
@@ -61,7 +66,7 @@
             <li class="my-2">
               <button class="btn d-inline-flex align-items-center collapsed border-0" data-bs-toggle="collapse"
                 aria-expanded="false" data-bs-target="#forms-collapse" aria-controls="forms-collapse">
-                Forms
+                Regular Commands
               </button>
               <ul class="list-unstyled ps-3 collapse" id="forms-collapse">
                 <li>
@@ -74,8 +79,33 @@
           </ul>
         </nav>
       </aside>
-      <section class="col-12 col-md-9">
-        
+      <section id="docs" class="col-12 col-md-9 py-md-2">
+        <article id="about"
+          class="d-flex flex-column flex-md-row justify-content-md-between align-items-center">
+          <div class="col-md-8 text-center text-md-start">
+            <h2>About Rosiebot</h2>
+            <p>
+              Rosiebot is a discord.js-based bot made with love and named after my cat, Rosie. The bot is currently
+              private, but I plan to release a public invite when it gets to a point I'm happy with.
+            </p>
+          </div>
+          <div class="card rounded-3">
+            <div class="card-body py-2 fw-semibold">
+              <p class="mb-2">
+                Status: <span id="bot-status" data-status="pending"></span>
+              </p>
+              <p class="mb-1">
+                Serving <span id="bot-users">0</span> users in <span id="bot-servers">0</span> servers
+              </p>
+            </div>
+          </div>
+        </article>
+        <article id="slash-commands">
+
+        </article>
+        <article id="regular-commands">
+
+        </article>
       </section>
     </main>
   </div>
