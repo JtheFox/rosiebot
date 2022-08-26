@@ -1,22 +1,31 @@
 const logger = require('../utils/logger');
-const express = require('express');
-const app = express();
+const axios = require('axios');
+const app = require('express')();
 const PORT = process.env.PORT || 3000;
 
-exports.start = async (client) => {
-  if (!client) throw new Error('No client provided');
+exports.start = async (token) => {
+  if (!token) throw new Error('No token provided');
+
+  const discordApiConfig = { headers: { Authorization: `Bot ${token}` } };
+  const discordApiUrl = 'https://discord.com/api/v9';
 
   app.get('/', (req, res) => {
     res.redirect('https://github.com/JtheFox/rosiebot');
   });
 
-  app.get('/statistics', (req, res) => {
-    console.log(client.users)
+  app.get('/stats', async (req, res) => {
+    let botUsers = 0;
+    const botGuilds = await axios.get(`${discordApiUrl}/users/@me/guilds`, discordApiConfig);
+    for await (let guild of botGuilds.data) {
+      const guildRes = await axios.get(`${discordApiUrl}/guilds/${guild.id}/preview`, discordApiConfig);
+      botUsers += guildRes.data.approximate_member_count;
+    }
+
     res.status(200).json({
-      users: client.users.cache.size,
-      servers: client.guilds.cache.size
+      users: botUsers,
+      servers: botGuilds.data.length
     });
   });
 
-  app.listen(PORT, () => logger.ready('Now listening'));
+  app.listen(PORT, () => logger.ready('Sever is now listening'));
 }
