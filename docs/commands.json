@@ -39,7 +39,7 @@
       "subcommands": [
         {
           "name": "create",
-          "description": "Create a new bet with a title and two options",
+          "description": "Create a new bet with a title and two options. There must be no active bet to create a new one.",
           "options": [
             {
               "name": "title",
@@ -64,38 +64,44 @@
         },
         {
           "command": "close",
-          "description": "",
+          "description": "Close betting on the active bet. Requires an active bet with open betting",
           "options": [],
           "image": {
-            "file": "",
-            "alt": ""
+            "file": "slash-bet-close.png",
+            "alt": "Closing betting on a bet with /bet close"
           }
         },
         {
-          "command": "",
-          "description": "",
+          "command": "on",
+          "description": "Place a bet on the active bet. Requires an active bet with open betting",
           "options": [],
           "image": {
-            "file": "",
-            "alt": ""
+            "file": "slash-bet-on.png",
+            "alt": "Placing a bet on an active bet with /bet on"
           }
         },
         {
-          "command": "",
-          "description": "",
+          "command": "cancel",
+          "description": "Cancel and end the active bet with no payout. Can only be done by a server admin or the bet creator. Requires an active bet.",
           "options": [],
           "image": {
-            "file": "",
-            "alt": ""
+            "file": "slash-bet-cancel.png",
+            "alt": "Cancelling the active bet with /bet cancel"
           }
         },
         {
-          "command": "",
-          "description": "",
-          "options": [],
+          "command": "end",
+          "description": "End the bet with a winner. Requires an active bet.",
+          "options": [
+            {
+              "name": "winner",
+              "description": "Option number of the bet winner",
+              "required": true
+            }
+          ],
           "image": {
-            "file": "",
-            "alt": ""
+            "file": "slash-bet-end.png",
+            "alt": "Ending the active bet with /bet end"
           }
         }
       ]
@@ -117,17 +123,15 @@
     },
     {
       "name": "",
-      "subcommands": [
-        {
-          "command": "",
-          "description": "",
-          "options": [],
-          "image": {
-            "file": "",
-            "alt": ""
-          }
+      "command": "",
+      "command_data": {
+        "description": "",
+        "options": [],
+        "image": {
+          "file": "",
+          "alt": ""
         }
-      ]
+      }
     }
   ],
   "regular_commands": []

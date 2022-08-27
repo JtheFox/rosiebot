@@ -75,11 +75,13 @@ const createSlashCommandDoc = (slashCmd) => {
   </li>`
   }
 
-  const { name, command, subcommands } = slashCmd;
+  const { name, command, command_data, subcommands } = slashCmd;
 
   return `<div class="command mt-4">
   <h4 id="slash-${command}" class="mb-3">${name}</h4>
-    ${subcommands.map(s => createSubcommandDoc(s, command)).join('\n')}
+    ${command_data ? 
+      createSubcommandDoc(command_data, command) :
+      subcommands.map(s => createSubcommandDoc(s, command)).join('\n')}
   </div>`
 }
 
