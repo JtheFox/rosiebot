@@ -5,7 +5,7 @@
     "command": "",
     "subcommands": [
       {
-        "name": "",
+        "command": "",
         "description": "",
         "options": [],
         "image": {
@@ -19,6 +19,18 @@
     "name": "",
     "description": "",
     "required": true
+  },
+  "slash_single_cmd": {
+    "name": "",
+    "command": "",
+    "command_data": {
+      "description": "",
+      "options": [],
+      "image": {
+        "file": "",
+        "alt": ""
+      }
+    }
   },
   "slash_commands": [
     {
@@ -51,7 +63,7 @@
           }
         },
         {
-          "name": "",
+          "command": "close",
           "description": "",
           "options": [],
           "image": {
@@ -60,7 +72,7 @@
           }
         },
         {
-          "name": "",
+          "command": "",
           "description": "",
           "options": [],
           "image": {
@@ -69,7 +81,7 @@
           }
         },
         {
-          "name": "",
+          "command": "",
           "description": "",
           "options": [],
           "image": {
@@ -78,7 +90,7 @@
           }
         },
         {
-          "name": "",
+          "command": "",
           "description": "",
           "options": [],
           "image": {
@@ -93,7 +105,7 @@
       "command": "random",
       "subcommands": [
         {
-          "name": "",
+          "command": "",
           "description": "",
           "options": [],
           "image": {
@@ -107,7 +119,7 @@
       "name": "",
       "subcommands": [
         {
-          "name": "",
+          "command": "",
           "description": "",
           "options": [],
           "image": {

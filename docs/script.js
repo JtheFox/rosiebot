@@ -37,9 +37,9 @@ const createSlashCommandNav = ({ name, command }) => {
 
 const createSlashCommandDoc = (slashCmd) => {
   const createSubcommandDoc = (subcommand, parent) => {
-    const { name, description, options, image } = subcommand;
+    const { command, description, options, image } = subcommand;
     return `<div class="d-flex flex-column flex-md-row">
-    <code class="command-syntax col-3">/${parent} ${name}</code>
+    <code class="command-syntax col-3">/${parent}${command ? ` ${command}` : ''}</code>
     <div class="command-details col-9">
       <div class="row">
         <p class="col-2 fw-semibold">Description:</p>
