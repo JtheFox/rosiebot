@@ -1,28 +1,122 @@
 {
   "prefix": ".rosie ",
-  "command": {
+  "slash_cmd": {
     "name": "",
+    "command": "",
     "subcommands": [
       {
         "name": "",
         "description": "",
         "options": [],
         "image": {
-          "src": "",
+          "file": "",
           "alt": ""
         }
       }
     ]
   },
-  "option": {
+  "slash_cmd_option": {
     "name": "",
-    "required": true,
-    "description": ""
+    "description": "",
+    "required": true
   },
   "slash_commands": [
-
+    {
+      "name": "Bet",
+      "command": "bet",
+      "subcommands": [
+        {
+          "name": "create",
+          "description": "Create a new bet with a title and two options",
+          "options": [
+            {
+              "name": "title",
+              "description": "Title of the bet",
+              "required": true
+            },
+            {
+              "name": "option1",
+              "description": "Name of the first bet option",
+              "required": true
+            },
+            {
+              "name": "option2",
+              "description": "Name of the second bet option",
+              "required": true
+            }
+          ],
+          "image": {
+            "file": "slash-bet-create.png",
+            "alt": "Creating a bet with /bet create"
+          }
+        },
+        {
+          "name": "",
+          "description": "",
+          "options": [],
+          "image": {
+            "file": "",
+            "alt": ""
+          }
+        },
+        {
+          "name": "",
+          "description": "",
+          "options": [],
+          "image": {
+            "file": "",
+            "alt": ""
+          }
+        },
+        {
+          "name": "",
+          "description": "",
+          "options": [],
+          "image": {
+            "file": "",
+            "alt": ""
+          }
+        },
+        {
+          "name": "",
+          "description": "",
+          "options": [],
+          "image": {
+            "file": "",
+            "alt": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "Random",
+      "command": "random",
+      "subcommands": [
+        {
+          "name": "",
+          "description": "",
+          "options": [],
+          "image": {
+            "file": "",
+            "alt": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "",
+      "subcommands": [
+        {
+          "name": "",
+          "description": "",
+          "options": [],
+          "image": {
+            "file": "",
+            "alt": ""
+          }
+        }
+      ]
+    }
   ],
-  "regular_commands": [
-
-  ]
+  "regular_commands": []
 }
