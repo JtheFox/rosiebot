@@ -101,8 +101,7 @@ const init = async () => {
       client.login(process.env.BOT_TOKEN),
       new Promise((_r, rej) => setTimeout(() => rej('No login detected after 30 seconds'), 1000 * 30))
     ]);
-    logger.log('Client login successful');
-    await server.start(process.env.BOT_TOKEN);
+    logger.log('Client login successful');;
   } catch (err) {
     logger.error(err);
     process.exit(1);

@@ -60,7 +60,7 @@ const createSlashCommandDoc = (slashCmd) => {
       </div>
       <div class="row">
         <p class="col-md-3 col-lg-2 fw-semibold">Example:</p>
-        <img class="col-md-9 col-lg-10" src="../assets/examples/${image.file}" alt="${image.alt}">
+        <img class="col-md-9 col-lg-10" src="./assets/${image.file}" alt="${image.alt}">
       </div>
     </div>
   </div>`
@@ -105,7 +105,7 @@ const createRegularCommandDoc = (cmd, prefix) => {
         </div>
         <div class="row">
           <p class="col-md-3 col-lg-2 fw-semibold">Example:</p>
-          <img class="col-md-9 col-lg-10" src="../assets/examples/${image.file}" alt="${image.alt.replaceAll('{PREFIX}', prefix)}">
+          <img class="col-md-9 col-lg-10" src="./assets/${image.file}" alt="${image.alt.replaceAll('{PREFIX}', prefix)}">
         </div>
       </div>
     </div>
