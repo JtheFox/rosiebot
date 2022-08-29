@@ -22,14 +22,16 @@ const init = async () => {
   // Load command data
   const response = await fetch('./commands.json');
   const commands = await response.json();
-  const { slash_commands, regular_commands } = commands;
+  const { prefix, slash_commands, regular_commands } = commands;
   $('#slash-commands').innerHTML = slash_commands.map(s => createSlashCommandDoc(s)).join('\n');
-  $('.slash-command-navlist').innerHTML = slash_commands.map(s => createSlashCommandNav(s)).join('\n');
+  $('.slash-command-navlist').innerHTML = slash_commands.map(s => createCommandNav(s)).join('\n');
+  $('#regular-commands').innerHTML = regular_commands.map(c => createRegularCommandDoc(c, prefix)).join('\n');
+  $('.regular-command-navlist').innerHTML = regular_commands.map(c => createCommandNav(c, false)).join('\n');
 }
 
-const createSlashCommandNav = ({ name, command }) => {
+const createCommandNav = ({ name, command }, isSlash = true) => {
   return `<li>
-  <a class="d-inline-flex align-items-center rounded text-decoration-none" href="#slash-${command}">
+  <a class="d-inline-flex align-items-center rounded text-decoration-none" href="#${isSlash ? 'slash' : 'cmd'}-${command}">
     ${name}
   </a>
 </li>`
@@ -38,7 +40,7 @@ const createSlashCommandNav = ({ name, command }) => {
 const createSlashCommandDoc = (slashCmd) => {
   const createSubcommandDoc = (subcommand, parent) => {
     const { command, description, options, image } = subcommand;
-    return `<div class="d-flex flex-column flex-md-row">
+    return `<div class="d-flex flex-column flex-md-row mb-5">
     <code class="command-syntax col-3">/${parent}${command ? ` ${command}` : ''}</code>
     <div class="command-details col-9">
       <div class="row">
@@ -51,10 +53,10 @@ const createSlashCommandDoc = (slashCmd) => {
         <ul class="list-unstyled col-10">
           ${options.map(o => createOptionDoc(o)).join('\n')}
         </ul>` : ''}
-        <div class="row">
-          <p class="col-2 fw-semibold">Example:</p>
-          <img class="col-7" src="../assets/examples/${image.file}" alt="${image.alt}">
-        </div>
+      </div>
+      <div class="row">
+        <p class="col-2 fw-semibold">Example:</p>
+        <img class="col-7" src="../assets/examples/${image.file}" alt="${image.alt}">
       </div>
     </div>
   </div>`
@@ -79,9 +81,30 @@ const createSlashCommandDoc = (slashCmd) => {
 
   return `<div class="command mt-4">
   <h4 id="slash-${command}" class="mb-3">${name}</h4>
-    ${command_data ? 
+    ${command_data ?
       createSubcommandDoc(command_data, command) :
       subcommands.map(s => createSubcommandDoc(s, command)).join('\n')}
+  </div>`
+}
+
+const createRegularCommandDoc = (cmd, prefix) => {
+  const { name, command, description, image } = cmd;
+
+  return `<div class="command mt-4">
+  <h4 id="cmd-${command}" class="mb-3">${name}</h4>
+  <div class="d-flex flex-column flex-md-row">
+    <code class="command-syntax col-3">${prefix}${command}</code>
+      <div class="command-details col-9">
+        <div class="row">
+          <p class="col-2 fw-semibold">Description:</p>
+          <p class="col-10">${description}</p>
+        </div>
+        <div class="row">
+          <p class="col-2 fw-semibold">Example:</p>
+          <img class="col-7" src="../assets/examples/${image.file}" alt="${image.alt.replaceAll('{PREFIX}', prefix)}">
+        </div>
+      </div>
+    </div>
   </div>`
 }
 
