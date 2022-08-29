@@ -55,11 +55,11 @@ exports.run = async (client, interaction) => {
         return response.data;
       }));
       const buildImg = await joinImages(buffers, { direction: 'horizontal' });
-      await buildImg.toFile('assets/build.png');
-      replyFiles.push(new AttachmentBuilder('./assets/build.png'));
+      const buildAtt = new AttachmentBuilder().setFile(await buildImg.toFormat('png').toBuffer()).setName('items.png');
+      replyFiles.push(buildAtt);
       replyEmbed
         .setTitle(buildName)
-        .setImage('attachment://build.png')
+        .setImage('attachment://items.png')
       break;
     // TODO: Find a way to get runes data from the datadragon API
     case 'runes':
@@ -103,7 +103,7 @@ exports.run = async (client, interaction) => {
       replyEmbed
         .setTitle(`Rolled a ${sidesInput}-sided die ${rollResults.length} ${pluralize('time', rollResults)}`)
         .setDescription(rollResults.map(n => `[${n}]`).join(''));
-      if (rollResults.length > 5) { // Display bar chart if more than 10 results
+      if (rollResults.length > 5) {
         rollResults.sort((a, b) => a - b);
         const rollCount = countArray(rollResults);
         const rollGraph = getBarChart({
@@ -116,7 +116,7 @@ exports.run = async (client, interaction) => {
       break;
     default: throw new Error('Invalid option');
   }
-
+  
   await interaction.reply({ embeds: [replyEmbed], files: replyFiles });
 }
 
@@ -128,7 +128,7 @@ exports.cmd = {
     {
       "type": 1,
       "name": "champion",
-      "description": "Get a random League of legends champion"
+      "description": "Get a random League of Legends champion"
     },
     {
       "type": 1,

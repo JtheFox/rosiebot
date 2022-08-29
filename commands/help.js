@@ -17,7 +17,7 @@ exports.run = async (client, message, args) => {
   // If no command specified show all commands
   if (!commandName) {
     // Begin creating display output
-    output.setTitle(`Command List | Prefix: \`${prefix}\` `).setDescription(`Use \`${prefix}help <command>\` for more details`);
+    output.setTitle(`Command List | Prefix: \`${prefix}\` `).setDescription(`Use \`${prefix}help <command>\` for more details\nAlso check out [Rosiebot Docs](https://jthefox.github.io/rosiebot)`);
     // Add available commands to display output
     commandList.sort().forEach(cmd => {
       const { name, description } = cmd.config;

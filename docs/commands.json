@@ -1,0 +1,210 @@
+{
+  "prefix": ".rosie ",
+  "slash_cmd": {
+    "name": "",
+    "command": "",
+    "subcommands": [
+      {
+        "command": "",
+        "description": "",
+        "options": [],
+        "image": {
+          "file": "",
+          "alt": ""
+        }
+      }
+    ]
+  },
+  "slash_cmd_option": {
+    "name": "",
+    "description": "",
+    "required": true
+  },
+  "slash_single_cmd": {
+    "name": "",
+    "command": "",
+    "command_data": {
+      "description": "",
+      "options": [],
+      "image": {
+        "file": "",
+        "alt": ""
+      }
+    }
+  },
+  "slash_commands": [
+    {
+      "name": "Bet",
+      "command": "bet",
+      "subcommands": [
+        {
+          "name": "create",
+          "description": "Create a new bet with a title and two options. There must be no active bet to create a new one.",
+          "options": [
+            {
+              "name": "title",
+              "description": "Title of the bet",
+              "required": true
+            },
+            {
+              "name": "option1",
+              "description": "Name of the first bet option",
+              "required": true
+            },
+            {
+              "name": "option2",
+              "description": "Name of the second bet option",
+              "required": true
+            }
+          ],
+          "image": {
+            "file": "slash-bet-create.png",
+            "alt": "Creating a bet with /bet create"
+          }
+        },
+        {
+          "command": "close",
+          "description": "Close betting on the active bet. Requires an active bet with open betting.",
+          "options": [],
+          "image": {
+            "file": "slash-bet-close.png",
+            "alt": "Closing betting on a bet with /bet close"
+          }
+        },
+        {
+          "command": "on",
+          "description": "Place a bet on the active bet. Requires an active bet with open betting.",
+          "options": [],
+          "image": {
+            "file": "slash-bet-on.png",
+            "alt": "Placing a bet on an active bet with /bet on"
+          }
+        },
+        {
+          "command": "cancel",
+          "description": "Cancel and end the active bet with no payout. Can only be done by a server admin or the bet creator. Requires an active bet.",
+          "options": [],
+          "image": {
+            "file": "slash-bet-cancel.png",
+            "alt": "Cancelling the active bet with /bet cancel"
+          }
+        },
+        {
+          "command": "end",
+          "description": "End the bet with a winner. Requires an active bet.",
+          "options": [
+            {
+              "name": "winner",
+              "description": "Option number of the bet winner",
+              "required": true
+            }
+          ],
+          "image": {
+            "file": "slash-bet-end.png",
+            "alt": "Ending the active bet with /bet end"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Random",
+      "command": "random",
+      "subcommands": [
+        {
+          "command": "champion",
+          "description": "Get a random League of Legends champion.",
+          "options": [],
+          "image": {
+            "file": "slash-random-champion.png",
+            "alt": "Generating a random LoL champion with /random champion"
+          }
+        },
+        {
+          "command": "items",
+          "description": "Get a random League of Legends item build.",
+          "options": [],
+          "image": {
+            "file": "slash-random-items.png",
+            "alt": "Generating a random LoL item build with /random items"
+          }
+        },
+        {
+          "command": "coinflip",
+          "description": "Flip a coin, heads or tails.",
+          "options": [
+            {
+              "name": "amount",
+              "description": "Number of coins to flip (1-50, default 1)",
+              "required": false
+            }
+          ],
+          "image": {
+            "file": "slash-random-coinflip.png",
+            "alt": "Flipping a coin with /random coinflip"
+          }
+        },
+        {
+          "command": "diceroll",
+          "description": "Roll the dice.",
+          "options": [
+            {
+              "name": "sides",
+              "description": "Number of sides on the die (4-20, default 6)",
+              "required": false
+            },
+            {
+              "name": "amount",
+              "description": "Number of dice to roll (1-50, default 2)",
+              "required": false
+            }
+          ],
+          "image": {
+            "file": "slash-random-diceroll.png",
+            "alt": "Rolling the dice with /random diceroll"
+          }
+        }
+      ]
+    },
+    {
+      "name": "User Profile",
+      "command": "me",
+      "command_data": {
+        "description": "View your server profile.",
+        "options": [],
+        "image": {
+          "file": "slash-me.png",
+          "alt": "Viewing server profile with /me"
+        }
+      }
+    }
+  ],
+  "regular_cmd": {
+    "name": "",
+    "command": "",
+    "description": "",
+    "image": {
+      "file": "",
+      "alt": ""
+    }
+  },
+  "regular_commands": [
+    {
+      "name": "Help",
+      "command": "help",
+      "description": "Rosiebot help command.",
+      "image": {
+        "file": "cmd-help.png",
+        "alt": "Using the {PREFIX}help command"
+      }
+    },
+    {
+      "name": "Random",
+      "command": "random",
+      "description": "Get a random League of Legends champion.",
+      "image": {
+        "file": "cmd-random.png",
+        "alt": "Generating a random LoL champion with {PREFIX}random"
+      }
+    }
+  ]
+}

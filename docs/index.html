@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+  <title>Rosiebot</title>
+</head>
+
+<body>
+  <div class="container-lg">
+    <div class="row">
+      <header class="d-flex flex-wrap justify-content-center pt-3 pb-0 pb-md-3">
+        <div class="d-flex align-items-center me-md-auto text-dark text-decoration-none">
+          <img class="rounded-circle me-2" src="../assets/icons/rosiebot-icon.png" alt="Rosiebot Icon" width="44"
+            height="44" />
+          <span class="fs-4 fw-semibold">Rosiebot</span>
+        </div>
+        <nav class="navbar navbar-expand">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link link-primary me-3" href="https://github.com/JtheFox/rosiebot">
+                View Source Code
+              </a>
+            </li>
+            <li class="nav-item">
+              <button type="button" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                data-bs-title="Tooltip on bottom" disabled>
+                Invite Coming Soon
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+    <main class="row py-md-3">
+      <aside class="col-12 col-md-3 bd-aside">
+        <nav class="navbar docs-nav  sticky-top">
+          <ul class="list-unstyled mb-1">
+            <li class="fw-semibold">
+              <a class="d-inline-flex align-items-center rounded text-decoration-none" href="#about">
+                About
+              </a>
+            </li>
+            <li class="my-2">
+              <button class="btn d-inline-flex align-items-center collapsed border-0" data-bs-toggle="collapse"
+                aria-expanded="false" data-bs-target="#contents-collapse" aria-controls="contents-collapse">
+                Slash Commands
+              </button>
+              <ul class="slash-command-navlist list-unstyled ps-3 collapse" id="contents-collapse">
+                <!-- Example nav item overridden by page generation -->
+                <li>
+                  <a class="d-inline-flex align-items-center rounded text-decoration-none" href="#example">
+                    Example
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="my-2">
+              <button class="btn d-inline-flex align-items-center collapsed border-0" data-bs-toggle="collapse"
+                aria-expanded="false" data-bs-target="#forms-collapse" aria-controls="forms-collapse">
+                Regular Commands
+              </button>
+              <ul class="regular-command-navlist list-unstyled ps-3 collapse" id="forms-collapse">
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+      <section id="docs" class="col-12 col-md-9 py-md-2 pe-md-5">
+        <article id="about" class="d-flex flex-column flex-md-row justify-content-md-between align-items-center">
+          <div class="col-md-8 text-center text-md-start">
+            <h2>About Rosiebot</h2>
+            <p>
+              Rosiebot is a discord.js-based bot made with love and named after my cat, Rosie. The bot is currently
+              private, but I plan to release a public invite when it gets to a point I'm happy with.
+            </p>
+          </div>
+          <div class="card rounded-3">
+            <div class="card-body py-2 fw-semibold">
+              <p class="mb-2">
+                Status: <span id="bot-status" data-status="pending"></span>
+              </p>
+              <p class="mb-1">
+                Serving <span id="bot-users">0</span> users in <span id="bot-servers">0</span> servers
+              </p>
+            </div>
+          </div>
+        </article>
+        <article id="slash-commands">
+          <h2>Slash Commands</h2>
+          <!-- Example slash command doc overridden by page generation -->
+          <div class="command mt-4 px-3 px-md-0">
+            <h4 id="slash-bet" class="mb-3">Bet</h4>
+            <div class="d-flex flex-column flex-md-row">
+              <code class="command-syntax col-md-3 mb-2">/bet create</code>
+              <div class="command-details col-md-9">
+                <div class="row">
+                  <p class="col-md-3 col-lg-2 fw-semibold">Description:</p>
+                  <p class="col-md-9 col-lg-10">Create a new bet with a title and two
+                    options.</p>
+                </div>
+                <div class="row">
+                  <p class="col-md-3 col-lg-2 fw-semibold">Options:</p>
+                  <ul class="list-unstyled col-md-9 col-lg-10">
+                    <li class="d-flex">
+                      <div class="col-md-5 col-lg-3">
+                        <code class="command-option">
+                          title<small class="ps-2 pe-3 text-danger">required</small>
+                        </code>
+                      </div>
+                      <div class="col-md-7 col-lg-9">
+                        <small>
+                          Title of the bet
+                        </small>
+                      </div>
+                    </li>
+                    <li class="d-flex text-nowrap">
+                      <div class="col-md-5 col-lg-3">
+                        <code class="command-option">
+                          option1<small class="ps-2 pe-3 text-danger">required</small>
+                        </code>
+                      </div>
+                      <div class="col-md-7 col-lg-9">
+                        <small>
+                          Name of the first bet option
+                        </small>
+                      </div>
+                    </li>
+                    <li class="d-flex text-nowrap">
+                      <div class="col-md-5 col-lg-3">
+                        <code class="command-option">
+                          option2<small class="ps-2 pe-3 text-danger">required</small>
+                        </code>
+                      </div>
+                      <div class="col-md-7 col-lg-9">
+                        <small>
+                          Name of the second bet option
+                        </small>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="row">
+                  <p class="col-md-3 col-lg-2 fw-semibold">Example:</p>
+                  <img class="col-md-9 col-lg-10" src="../assets/examples/slash-bet-create.png">
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article id="regular-commands">
+          <h2>Regular Commands</h2>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script src="./script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+    integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
+    integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

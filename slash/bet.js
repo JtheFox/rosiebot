@@ -4,7 +4,6 @@ const { isAdmin, pluralize, embedBreak } = require('../utils/helpers.js');
 const { ensureGuildMember, payoutBet } = require('../db/dbOps.js');
 
 // TODO: Add close timer to bet create options
-// TODO: Add bet payouts
 // TODO: Refactor Bet class
 exports.run = async (client, interaction) => {
   // Initialize and descture variables

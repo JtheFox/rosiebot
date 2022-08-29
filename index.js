@@ -7,6 +7,7 @@ const { intents, partials, customEmojis } = require('./config.js');
 const sequelize = require('./db/connection.js');
 const cron = require('node-cron');
 const ddragon = require('./utils/ddragon');
+const server = require('./server');
 
 // Instantiate client
 const client = new Client({ intents, partials });
@@ -87,14 +88,25 @@ const init = async () => {
   }
 
   // Schedule LoL version checker
+  logger.log('Getting latest Datadragon version');
   global.ddragVersion = await ddragon.getLatestVersion();
   cron.schedule('* * * * Thursday', async () => {
     console.log('Checking for new LoL game version');
     global.ddragVersion = await ddragon.getLatestVersion();
   });
 
-  // Login the client
-  await client.login(process.env.BOT_TOKEN);
+  // Login the client and start the api
+  try {
+    await Promise.race([
+      client.login(process.env.BOT_TOKEN),
+      new Promise((_r, rej) => setTimeout(() => rej('No login detected after 30 seconds'), 1000 * 30))
+    ]);
+    logger.log('Client login successful');
+    await server.start(process.env.BOT_TOKEN);
+  } catch (err) {
+    logger.error(err);
+    process.exit(1);
+  }
 }
 
 init();

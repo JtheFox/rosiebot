@@ -19,11 +19,7 @@ exports.run = async (client, interaction) => {
           .setColor(settings.embedColor)
           .setAuthor({ name: user.tag, iconURL: member.displayAvatarURL() })
           .setDescription(`Member of **${guild.name}** since\n${moment(member.joinedAt).format('LL')} (${moment(member.joinedAt).fromNow()})`)
-          .addFields(
-            { ...embedBreak, inline: true },
-            { name: 'Betting', value: `Wins: ${betWins}\nLosses: ${betLosses}`, inline: true },
-            { ...embedBreak, inline: true },
-          )
+          .addFields({ name: 'Betting', value: `Wins: ${betWins}\nLosses: ${betLosses}` })
           .setFooter({ text: `User since ${moment(user.createdAt).format('LL')}`, iconURL: user.displayAvatarURL() })
       ]
     })
