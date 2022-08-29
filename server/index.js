@@ -8,7 +8,7 @@ const discordApiConfig = { headers: { Authorization: `Bot ${token}` } };
 const discordApiUrl = 'https://discord.com/api/v9';
 
 app.get('/', (req, res) => {
-  res.redirect('https://github.com/JtheFox/rosiebot');
+  res.redirect('https://jthefox.github.io/rosiebot/');
 });
 
 app.get('/stats', async (req, res) => {
