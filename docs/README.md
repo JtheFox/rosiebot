@@ -1,38 +1,10 @@
-# Commands
+# Rosiebot Docs
 
-**Regular Commands**
-1. [help](#help)
-2. [random](#random)
+![Bootstrap](https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 
-**Slash Commands**
-1. [/bet](#bet)
-2. [/me](#me)
-3. [/random](#random-1)
+[View the docs](https://jthefox.github.io/rosiebot/)
 
-## Regular Commands
-
-### help
-`help` - Displays all commands or shows details for a specific command<br>
-![Basic usage of the help command](../assets/examples/cmd-help1.png)
-![Usage of the help command for a specific command](../assets/examples/cmd-help2.png)
-
-### random
-`random` - Generates a random League of Legends champion<br>
-![Usage of the random command](../assets/examples/cmd-random.png)
-
-## Slash Commands
-
-### /bet
-`/bet` - Betting feature interface<br>
-![List of available bet subcommands](../assets/examples/cmd-bet1.png)<br>
-![Creating and placing a bet with /bet](../assets/examples/cmd-bet2.png)
-![Closing and ending a bet with /bet](../assets/examples/cmd-bet3.png)
-
-### /me
-`/me` - Display your user profile on a server<br>
-![Usage of the /me command](../assets/examples/cmd-me.png)
-
-### /random
-`random` - Get a randomly generated thing<br>
-![List of available random subcommands](../assets/examples/cmd-random1.png)<br>
-
+This is a documentation site designed by myself with [Bootstrap](https://getbootstrap.com/) for Rosiebot, hosted on GitHub Pages. All commands and their details are stored in `commands.json` and used by the layout builder in `script.js` to create the documentation based on the latest information. This also avoids the redundancy of having to hardcode all the command details in the HTML and allows for easy addition of new commands to the documentation. There is also a bot stats card on the page populated from data received from Rosiebot's API.

@@ -19,17 +19,15 @@ Rosiebot is a personal use discord bot- created with NodeJS, using AWS RDS for t
 - Persistent data
   - Per-guild user profiles
   - Betting with per-guild score data
+- Documentation site
+- API for bot statistics
 
 ## Commands
-See [the docs](https://github.com/JtheFox/rosiebot/tree/main/docs) for more
+See [the docs](https://jthefox.github.io/rosiebot/) for more
 
 ## Future Updates
-**Features**:
-- Ability to set the bet close timer in slash command options
-- Website for the bot
-- Caching for third-party api data
-
 **Commands**:
+- Ability to set the bet close timer in slash command options
 - Change bot command prefix
 - Duel command between 2 users
 - Rock, paper, scissors between 2 users
