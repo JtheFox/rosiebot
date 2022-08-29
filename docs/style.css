@@ -121,4 +121,6 @@ body {
 .command-details img {
   padding: 4px 12px !important;
   border-radius: 1.25rem;
+  height: auto;
+  max-width: 400px;
 }

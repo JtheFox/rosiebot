@@ -38,9 +38,9 @@
       </header>
     </div>
     <main class="row py-md-3">
-      <aside class="col-12 col-md-3 bd-aside sticky-xl-top just">
-        <nav class="navbar">
-          <ul class="list-unstyled">
+      <aside class="col-12 col-md-3 bd-aside">
+        <nav class="navbar docs-nav  sticky-top">
+          <ul class="list-unstyled mb-1">
             <li class="fw-semibold">
               <a class="d-inline-flex align-items-center rounded text-decoration-none" href="#about">
                 About
@@ -71,7 +71,7 @@
           </ul>
         </nav>
       </aside>
-      <section id="docs" class="col-12 col-md-9 py-md-2">
+      <section id="docs" class="col-12 col-md-9 py-md-2 pe-md-5">
         <article id="about" class="d-flex flex-column flex-md-row justify-content-md-between align-items-center">
           <div class="col-md-8 text-center text-md-start">
             <h2>About Rosiebot</h2>
@@ -94,50 +94,50 @@
         <article id="slash-commands">
           <h2>Slash Commands</h2>
           <!-- Example slash command doc overridden by page generation -->
-          <div class="command mt-4">
+          <div class="command mt-4 px-3 px-md-0">
             <h4 id="slash-bet" class="mb-3">Bet</h4>
             <div class="d-flex flex-column flex-md-row">
-              <code class="command-syntax col-3">/bet create</code>
-              <div class="command-details col-9">
+              <code class="command-syntax col-md-3 mb-2">/bet create</code>
+              <div class="command-details col-md-9">
                 <div class="row">
-                  <p class="col-2 fw-semibold">Description:</p>
-                  <p class="col-10">Create a new bet with a title and two
+                  <p class="col-md-3 col-lg-2 fw-semibold">Description:</p>
+                  <p class="col-md-9 col-lg-10">Create a new bet with a title and two
                     options.</p>
                 </div>
                 <div class="row">
-                  <p class="col-2 fw-semibold">Options:</p>
-                  <ul class="list-unstyled col-10">
+                  <p class="col-md-3 col-lg-2 fw-semibold">Options:</p>
+                  <ul class="list-unstyled col-md-9 col-lg-10">
                     <li class="d-flex">
-                      <div class="col-3">
+                      <div class="col-md-5 col-lg-3">
                         <code class="command-option">
                           title<small class="ps-2 pe-3 text-danger">required</small>
                         </code>
                       </div>
-                      <div class="col-9">
+                      <div class="col-md-7 col-lg-9">
                         <small>
                           Title of the bet
                         </small>
                       </div>
                     </li>
                     <li class="d-flex text-nowrap">
-                      <div class="col-3">
+                      <div class="col-md-5 col-lg-3">
                         <code class="command-option">
                           option1<small class="ps-2 pe-3 text-danger">required</small>
                         </code>
                       </div>
-                      <div class="col-9">
+                      <div class="col-md-7 col-lg-9">
                         <small>
                           Name of the first bet option
                         </small>
                       </div>
                     </li>
                     <li class="d-flex text-nowrap">
-                      <div class="col-3">
+                      <div class="col-md-5 col-lg-3">
                         <code class="command-option">
                           option2<small class="ps-2 pe-3 text-danger">required</small>
                         </code>
                       </div>
-                      <div class="col-9">
+                      <div class="col-md-7 col-lg-9">
                         <small>
                           Name of the second bet option
                         </small>
@@ -146,8 +146,8 @@
                   </ul>
                 </div>
                 <div class="row">
-                  <p class="col-2 fw-semibold">Example:</p>
-                  <img class="col-7" src="../assets/examples/slash-bet-create.png">
+                  <p class="col-md-3 col-lg-2 fw-semibold">Example:</p>
+                  <img class="col-md-9 col-lg-10" src="../assets/examples/slash-bet-create.png">
                 </div>
               </div>
             </div>

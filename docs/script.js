@@ -23,9 +23,13 @@ const init = async () => {
   const response = await fetch('./commands.json');
   const commands = await response.json();
   const { prefix, slash_commands, regular_commands } = commands;
-  $('#slash-commands').innerHTML = slash_commands.map(s => createSlashCommandDoc(s)).join('\n');
+  $('#slash-commands').innerHTML =
+    '<h2 class="text-center text-md-start">Slash Commands</h2>' +
+    slash_commands.map(s => createSlashCommandDoc(s)).join('\n');
   $('.slash-command-navlist').innerHTML = slash_commands.map(s => createCommandNav(s)).join('\n');
-  $('#regular-commands').innerHTML = regular_commands.map(c => createRegularCommandDoc(c, prefix)).join('\n');
+  $('#regular-commands').innerHTML =
+    '<h2 class="text-center text-md-start">Regular Commands</h2>' +
+    regular_commands.map(c => createRegularCommandDoc(c, prefix)).join('\n');
   $('.regular-command-navlist').innerHTML = regular_commands.map(c => createCommandNav(c, false)).join('\n');
 }
 
@@ -41,22 +45,22 @@ const createSlashCommandDoc = (slashCmd) => {
   const createSubcommandDoc = (subcommand, parent) => {
     const { command, description, options, image } = subcommand;
     return `<div class="d-flex flex-column flex-md-row mb-5">
-    <code class="command-syntax col-3">/${parent}${command ? ` ${command}` : ''}</code>
-    <div class="command-details col-9">
+    <code class="command-syntax col-md-3 mb-2">/${parent}${command ? ` ${command}` : ''}</code>
+    <div class="command-details col-md-9">
       <div class="row">
-        <p class="col-2 fw-semibold">Description:</p>
-        <p class="col-10">${description}</p>
+        <p class="col-md-3 col-lg-2 fw-semibold">Description:</p>
+        <p class="col-md-9 col-lg-10">${description}</p>
       </div>
       <div class="row">
         ${options.length ?
-        `<p class="col-2 fw-semibold">Options:</p>
-        <ul class="list-unstyled col-10">
+        `<p class="col-md-3 col-lg-2 fw-semibold">Options:</p>
+        <ul class="list-unstyled col-md-9 col-lg-10">
           ${options.map(o => createOptionDoc(o)).join('\n')}
         </ul>` : ''}
       </div>
       <div class="row">
-        <p class="col-2 fw-semibold">Example:</p>
-        <img class="col-7" src="../assets/examples/${image.file}" alt="${image.alt}">
+        <p class="col-md-3 col-lg-2 fw-semibold">Example:</p>
+        <img class="col-md-9 col-lg-10" src="../assets/examples/${image.file}" alt="${image.alt}">
       </div>
     </div>
   </div>`
@@ -65,13 +69,13 @@ const createSlashCommandDoc = (slashCmd) => {
   const createOptionDoc = (option) => {
     const { name, description, required } = option;
     return `<li class="d-flex">
-    <div class="col-3">
+    <div class="col-md-5 col-lg-3">
       <code class="command-option">
         ${name}
         ${required ? `<small class="ps-2 pe-3 text-danger">required</small>` : ''}
       </code>
     </div>
-    <div class="col-9">
+    <div class="col-md-7 col-lg-9">
       <small>${description}</small>
     </div>
   </li>`
@@ -79,7 +83,7 @@ const createSlashCommandDoc = (slashCmd) => {
 
   const { name, command, command_data, subcommands } = slashCmd;
 
-  return `<div class="command mt-4">
+  return `<div class="command mt-4 px-3 px-md-0">
   <h4 id="slash-${command}" class="mb-3">${name}</h4>
     ${command_data ?
       createSubcommandDoc(command_data, command) :
@@ -90,18 +94,18 @@ const createSlashCommandDoc = (slashCmd) => {
 const createRegularCommandDoc = (cmd, prefix) => {
   const { name, command, description, image } = cmd;
 
-  return `<div class="command mt-4">
+  return `<div class="command mt-4 px-3 px-md-0">
   <h4 id="cmd-${command}" class="mb-3">${name}</h4>
   <div class="d-flex flex-column flex-md-row">
-    <code class="command-syntax col-3">${prefix}${command}</code>
-      <div class="command-details col-9">
+    <code class="command-syntax col-md-3 mb-2">${prefix}${command}</code>
+      <div class="command-details col-md-9">
         <div class="row">
-          <p class="col-2 fw-semibold">Description:</p>
-          <p class="col-10">${description}</p>
+          <p class="col-md-3 col-lg-2 fw-semibold">Description:</p>
+          <p class="col-md-9 col-lg-10">${description}</p>
         </div>
         <div class="row">
-          <p class="col-2 fw-semibold">Example:</p>
-          <img class="col-7" src="../assets/examples/${image.file}" alt="${image.alt.replaceAll('{PREFIX}', prefix)}">
+          <p class="col-md-3 col-lg-2 fw-semibold">Example:</p>
+          <img class="col-md-9 col-lg-10" src="../assets/examples/${image.file}" alt="${image.alt.replaceAll('{PREFIX}', prefix)}">
         </div>
       </div>
     </div>
