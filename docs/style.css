@@ -84,12 +84,12 @@ body {
   content: "🔃Pending";
 }
 
-#bot-status[data-status="online"] {
+#bot-status[data-status="online"]::after  {
   color: green;
   content: "✅Online";
 }
 
-#bot-status[data-status="offline"] {
+#bot-status[data-status="offline"]::after  {
   color: red;
   content: "❌Offline";
 }
