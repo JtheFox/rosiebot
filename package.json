@@ -24,6 +24,7 @@
     "@discordjs/rest": "^1.0.1",
     "axios": "^0.27.2",
     "chalk": "^4.1.0",
+    "cors": "^2.8.5",
     "discord.js": "^14.0.3",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",

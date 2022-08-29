@@ -1,15 +1,14 @@
 const logger = require('../utils/logger');
 const axios = require('axios');
 const app = require('express')();
+const cors = require('cors');
 const PORT = process.env.PORT || 3000;
 const token = process.env.BOT_TOKEN;
 
 const discordApiConfig = { headers: { Authorization: `Bot ${token}` } };
 const discordApiUrl = 'https://discord.com/api/v9';
 
-app.get('/', (req, res) => {
-  res.redirect('https://jthefox.github.io/rosiebot/');
-});
+app.use(cors());
 
 app.get('/stats', async (req, res) => {
   let botUsers = 0;
@@ -23,6 +22,10 @@ app.get('/stats', async (req, res) => {
     users: botUsers,
     servers: botGuilds.data.length
   });
+});
+
+app.get('*', (req, res) => {
+  res.redirect('https://jthefox.github.io/rosiebot/');
 });
 
 app.listen(PORT, () => logger.ready('Sever is now listening'));
