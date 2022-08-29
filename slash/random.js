@@ -128,7 +128,7 @@ exports.cmd = {
     {
       "type": 1,
       "name": "champion",
-      "description": "Get a random League of legends champion"
+      "description": "Get a random League of Legends champion"
     },
     {
       "type": 1,
