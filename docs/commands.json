@@ -64,7 +64,7 @@
         },
         {
           "command": "close",
-          "description": "Close betting on the active bet. Requires an active bet with open betting",
+          "description": "Close betting on the active bet. Requires an active bet with open betting.",
           "options": [],
           "image": {
             "file": "slash-bet-close.png",
@@ -73,7 +73,7 @@
         },
         {
           "command": "on",
-          "description": "Place a bet on the active bet. Requires an active bet with open betting",
+          "description": "Place a bet on the active bet. Requires an active bet with open betting.",
           "options": [],
           "image": {
             "file": "slash-bet-on.png",
@@ -111,28 +111,100 @@
       "command": "random",
       "subcommands": [
         {
-          "command": "",
-          "description": "",
+          "command": "champion",
+          "description": "Get a random League of Legends champion.",
           "options": [],
           "image": {
-            "file": "",
-            "alt": ""
+            "file": "slash-random-champion.png",
+            "alt": "Generating a random LoL champion with /random champion"
+          }
+        },
+        {
+          "command": "items",
+          "description": "Get a random League of Legends item build.",
+          "options": [],
+          "image": {
+            "file": "slash-random-items.png",
+            "alt": "Generating a random LoL item build with /random items"
+          }
+        },
+        {
+          "command": "coinflip",
+          "description": "Flip a coin, heads or tails.",
+          "options": [
+            {
+              "name": "amount",
+              "description": "Number of coins to flip (1-50, default 1)",
+              "required": false
+            }
+          ],
+          "image": {
+            "file": "slash-random-coinflip.png",
+            "alt": "Flipping a coin with /random coinflip"
+          }
+        },
+        {
+          "command": "diceroll",
+          "description": "Roll the dice.",
+          "options": [
+            {
+              "name": "sides",
+              "description": "Number of sides on the die (4-20, default 6)",
+              "required": false
+            },
+            {
+              "name": "amount",
+              "description": "Number of dice to roll (1-50, default 2)",
+              "required": false
+            }
+          ],
+          "image": {
+            "file": "slash-random-diceroll.png",
+            "alt": "Rolling the dice with /random diceroll"
           }
         }
       ]
     },
     {
-      "name": "",
-      "command": "",
+      "name": "User Profile",
+      "command": "me",
       "command_data": {
-        "description": "",
+        "description": "View your server profile.",
         "options": [],
         "image": {
-          "file": "",
-          "alt": ""
+          "file": "slash-me.png",
+          "alt": "Viewing server profile with /me"
         }
       }
     }
   ],
-  "regular_commands": []
+  "regular_cmd": {
+    "name": "",
+    "command": "",
+    "description": "",
+    "image": {
+      "file": "",
+      "alt": ""
+    }
+  },
+  "regular_commands": [
+    {
+      "name": "Help",
+      "command": "help",
+      "description": "Rosiebot help command.",
+      "image": {
+        "file": "cmd-help.png",
+        "alt": "Using the {PREFIX}help command"
+      }
+    },
+    {
+      "name": "Random",
+      "command": "random",
+      "description": "Get a random League of Legends champion.",
+      "image": {
+        "file": "cmd-random.png",
+        "alt": "Generating a random LoL champion with {PREFIX}random"
+      }
+    }
+  ]
 }
