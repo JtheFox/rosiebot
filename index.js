@@ -10,7 +10,11 @@ const ddragon = require('./utils/ddragon');
 const server = require('./server');
 
 // Instantiate client
-const client = new Client({ intents, partials });
+const client = new Client({
+  intents,
+  partials,
+  allowedMentions: { repliedUser: false }
+});
 
 // Instantiate commands collections
 const commands = new Collection();
