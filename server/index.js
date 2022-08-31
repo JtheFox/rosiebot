@@ -6,14 +6,18 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const token = process.env.BOT_TOKEN;
+const docsPath = path.resolve('.', 'docs');
 
 const discordApiConfig = { headers: { Authorization: `Bot ${token}` } };
 const discordApiUrl = 'https://discord.com/api/v9';
 
+
+// Add middleware & set view engine
 app.use(cors());
+app.use(express.static(docsPath));
 
 // Routes
-app.get('/', (req, res) => res.status(200).sendFile('index.html'));
+app.get('/', (req, res) => res.status(200).sendFile(path.join(docsPath, 'index.html')));
 
 app.get('/stats', async (req, res) => {
   let botUsers = 0;
@@ -30,8 +34,5 @@ app.get('/stats', async (req, res) => {
 });
 
 app.get('*', (req, res) => res.status(404).redirect('/'));
-
-// Add static middleware
-app.use(express.static(path.join(__dirname, '..', 'docs')));
 
 app.listen(PORT, () => logger.ready('Sever is now listening'));
