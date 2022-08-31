@@ -1,8 +1,10 @@
 const { arrayRandom } = require('../utils/helpers.js');
 
 exports.run = async (client, message, args) => {
-  const choice = arrayRandom(args.join(' ').split('|').map(e => e.trim()));
-  await message.reply('I choose ' + choice);
+  const choices = args.join(' ').split('|').map(e => e.trim()).filter(e => !/^\s?$/.test(e));
+  console.log(choices)
+  const choice = arrayRandom(choices);
+  await message.reply(`I choose **${choice}**`);
 };
 
 exports.config = {
