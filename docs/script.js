@@ -1,5 +1,5 @@
 // Bot API
-const botApiUrl = 'http://rosiebot-env.eba-ic3gbqjz.us-east-1.elasticbeanstalk.com/stats';
+const botApiUrl = 'https://rosiebot.jthefox.com';
 
 // Shorthand function for query selector
 const $ = (sel) => document.querySelector(sel);
@@ -105,7 +105,7 @@ const createRegularCommandDoc = (cmd, prefix) => {
         </div>
         <div class="row">
           <p class="col-md-3 col-lg-2 fw-semibold">Example:</p>
-          <img class="col-md-9 col-lg-10" src="./assets/${image.file}" alt="${image.alt.replaceAll('{PREFIX}', prefix)}">
+          <img class="col-md-9 col-lg-10" src="/assets/${image.file}" alt="${image.alt.replaceAll('{PREFIX}', prefix)}">
         </div>
       </div>
     </div>
