@@ -1,5 +1,5 @@
 // Bot API
-const botApiUrl = 'https://rosie-bot.herokuapp.com/stats';
+const botApiUrl = 'http://rosiebot-env.eba-ic3gbqjz.us-east-1.elasticbeanstalk.com/stats';
 
 // Shorthand function for query selector
 const $ = (sel) => document.querySelector(sel);
