@@ -1,7 +1,8 @@
 const { getAllChampions, getAllItems } = require('../utils/ddragon.js');
 const { arrayRandom, indexRandom, countArray, pluralize } = require('../utils/helpers.js');
 const { EmbedBuilder, AttachmentBuilder } = require('discord.js');
-const { joinImages } = require('join-images');
+const mergeImg = require('merge-img');
+const Jimp = require('jimp');
 const axios = require('axios');
 
 exports.run = async (client, interaction) => {
@@ -54,8 +55,17 @@ exports.run = async (client, interaction) => {
         const response = await axios.get(url, { responseType: 'arraybuffer' });
         return response.data;
       }));
-      const buildImg = await joinImages(buffers, { direction: 'horizontal' });
-      const buildAtt = new AttachmentBuilder().setFile(await buildImg.toFormat('png').toBuffer()).setName('items.png');
+      const buildImg = await mergeImg(buffers);
+      const buildAtt = new AttachmentBuilder();
+      await new Promise((resolve, reject) => {
+        buildImg.getBuffer(Jimp.MIME_PNG, (err, buff) =>
+          err ? reject(err) : resolve(buildAtt.setFile(buff).setName('items.png').setDescription('Randomized LoL item build')))
+      });
+      buildImg.getBuffer('image/png', (err, buff) => {
+        console.log(buff)
+        buildAtt.setFile(buff).setName('items.png')
+      });
+      console.log(buildAtt)
       replyFiles.push(buildAtt);
       replyEmbed
         .setTitle(buildName)
@@ -116,7 +126,7 @@ exports.run = async (client, interaction) => {
       break;
     default: throw new Error('Invalid option');
   }
-  
+
   await interaction.reply({ embeds: [replyEmbed], files: replyFiles });
 }
 

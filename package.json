@@ -19,7 +19,10 @@
   "bugs": {
     "url": "https://github.com/JtheFox/rosiebot/issues"
   },
-  "homepage": "https://github.com/JtheFox/rosiebot#readme",
+  "engines": {
+    "node": ">=16"
+  },
+  "homepage": "https://jthefox.github.io/rosiebot/",
   "dependencies": {
     "@discordjs/rest": "^1.0.1",
     "axios": "^0.27.2",
@@ -29,12 +32,12 @@
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "inquirer": "^8.2.3",
-    "join-images": "^1.1.3",
+    "jimp": "^0.16.1",
+    "merge-img": "^2.1.3",
     "moment": "^2.29.4",
     "mysql2": "^2.3.3",
     "node-cron": "^3.0.2",
-    "sequelize": "^6.21.3",
-    "sharp": "^0.30.7"
+    "sequelize": "^6.21.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.19"
