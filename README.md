@@ -15,7 +15,7 @@
 Rosiebot is a (currently) personal use discord bot hosted on AWS. The bot is primarily focused on the usage of [Discord's application commands](https://discord.com/developers/docs/interactions/application-commands) via in-app slash commands, but supports some chat commands as well. I am currently building out the features and functionality and plan to release a public invite when I get to a point in development that I'm satisfied with.
 
 ## Commands
-See [the docs](https://jthefox.github.io/rosiebot/) for commands
+See [the docs](https://jthefox.github.io/rosiebot/) for full list of commands
 
 ## Current Features
 - Slash commands

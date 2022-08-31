@@ -205,6 +205,15 @@
         "file": "cmd-random.png",
         "alt": "Generating a random LoL champion with {PREFIX}random"
       }
+    },
+    {
+      "name": "Choose",
+      "command": "choose",
+      "description": "Choose a random item from a list of items separated by |",
+      "image": {
+        "file": "cmd-choose.png",
+        "alt": "Choosing a random item with {PREFIX}choose"
+      }
     }
   ]
 }

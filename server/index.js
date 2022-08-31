@@ -25,7 +25,7 @@ app.get('/stats', async (req, res) => {
 });
 
 app.get('*', (req, res) => {
-  res.redirect('https://jthefox.github.io/rosiebot/');
+  res.redirect(301, 'https://jthefox.github.io/rosiebot/');
 });
 
 app.listen(PORT, () => logger.ready('Sever is now listening'));
