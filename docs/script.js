@@ -1,6 +1,3 @@
-// Bot API
-const botApiUrl = 'https://rosiebot.jthefox.com';
-
 // Shorthand function for query selector
 const $ = (sel) => document.querySelector(sel);
 
@@ -8,7 +5,7 @@ const $ = (sel) => document.querySelector(sel);
 const init = async () => {
   // Display bot stats on page
   try {
-    const apiResponse = await fetch(botApiUrl);
+    const apiResponse = await fetch('/stats');
     if (apiResponse.ok) {
       const botStats = await apiResponse.json();
       $('#bot-status').dataset.status = 'online';
