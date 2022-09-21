@@ -95,14 +95,6 @@ const init = async () => {
     process.exit(1);
   }
 
-  // Schedule LoL version checker
-  logger.log('Getting latest Datadragon version');
-  global.ddragVersion = await ddragon.getLatestVersion();
-  cron.schedule('* * * * Thursday', async () => {
-    console.log('Checking for new LoL game version');
-    global.ddragVersion = await ddragon.getLatestVersion();
-  });
-
   // Login the client and start the api
   try {
     await Promise.race([

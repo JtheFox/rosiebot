@@ -20,16 +20,16 @@ exports.run = async (client, interaction) => {
     // Get random League of Legends Champion
     case 'champion':
       const champList = await getAllChampions();
-      const { name, title, version, id } = arrayRandom(champList);
+      const { name, alias, id } = arrayRandom(champList);
       replyEmbed
-        .setAuthor({ name: 'View on U.GG', url: `https://u.gg/lol/champions/${name.replace(' ', '')}/build` })
+        .setAuthor({ name: 'View on U.GG', url: `https://u.gg/lol/champions/${alias}/build` })
         .setTitle(name)
-        .setDescription(title.charAt(0).toUpperCase() + title.slice(1))
-        .setThumbnail(`http://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${id}.png`)
+        // .setDescription(title.charAt(0).toUpperCase() + title.slice(1))
+        .setThumbnail('https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-icons/' + id + '.png')
       break;
     // Get random League of Legends item build
     case 'items':
-      const getImgUrl = ({ image }) => `http://ddragon.leagueoflegends.com/cdn/${global.ddragVersion}/img/item/${image.full}`
+      const getImgUrl = ({ iconPath }) => 'https://raw.communitydragon.org/latest/game/assets/items/icons2d/' + iconPath.split('/').at(-1).toLowerCase();
       const items = await getAllItems();
       const { boots, mythic, legendary } = items;
       const build = [];
@@ -62,16 +62,14 @@ exports.run = async (client, interaction) => {
           err ? reject(err) : resolve(buildAtt.setFile(buff).setName('items.png').setDescription('Randomized LoL item build')))
       });
       buildImg.getBuffer('image/png', (err, buff) => {
-        console.log(buff)
         buildAtt.setFile(buff).setName('items.png')
       });
-      console.log(buildAtt)
       replyFiles.push(buildAtt);
       replyEmbed
         .setTitle(buildName)
         .setImage('attachment://items.png')
       break;
-    // TODO: Find a way to get runes data from the datadragon API
+    // TODO: Runes builder with cdragon
     case 'runes':
       throw new Error('This command has not been implemented yet');
     // Flip a coin <1-50> times, default 1
