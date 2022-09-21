@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "server": "node server/index.js",
     "dev": "nodemon index.js",
     "ops": "node operations/index.js"
   },
