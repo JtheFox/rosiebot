@@ -7,7 +7,6 @@ const { intents, partials, customEmojis } = require('./config.js');
 const sequelize = require('./db/connection.js');
 const cron = require('node-cron');
 const ddragon = require('./utils/ddragon');
-const server = require('./server');
 
 // Instantiate client
 const client = new Client({
@@ -28,8 +27,13 @@ const emojis = (key) => {
     client.emojis.cache.find(e => e.name === key || e.id === key);
 }
 
-// Create map for guild bets
-global.bets = new Map();
+// Create global objects
+global.bets = new Collection();
+global.cache = {
+  guilds: new Collection(),
+  users: new Collection(),
+  guildMembers: new Collection(),
+}
 
 // Store things in a single property of the client
 client.container = {

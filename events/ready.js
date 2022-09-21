@@ -11,7 +11,8 @@ module.exports = async client => {
       ...defaultSettings
     });
     if (!def) throw new Error('Operation failed');
-    created ? logger.log('Default settings created') : logger.log('Default settings found');
+    global.cache.guilds.set('default', def.dataValues);
+    logger.log(`Default settings ${created ? 'created' : 'loaded'}`);
   } catch (err) {
     logger.error(err)
     logger.error('Encountered an error while ensuring defaults, exiting process');

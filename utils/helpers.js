@@ -1,5 +1,6 @@
 const logger = require('../utils/logger');
 const { Guild } = require('../db/models');
+const { defaultSettings } = require('../config.js');
 
 // Catch and format logging of unhandled exceptions and rejections
 process.on('uncaughtException', err => {
@@ -14,16 +15,24 @@ process.on('unhandledRejection', err => {
 
 module.exports = {
   // Get default or guild settings
-  getSettings: async (guild) => {
-    const id = !guild ?
-      undefined :
-      typeof guild === 'string' ? guild : guild.id
-    const options = { raw: true, nest: true };
-    let settings;
-    if (id) settings = await Guild.findByPk(id, options);
-    if (!guild || !settings) settings = await Guild.findByPk('default', options);
-    return settings;
-  },
+  // getSettings: async (guild) => {
+  //   const getFromCache = (key) => global.cache.guilds.get(key);
+  //   const id = !guild ?
+  //     undefined :
+  //     typeof guild === 'string' ? guild : guild.id
+  //   const options = { raw: true, nest: true };
+  //   let settings;
+  //   if (id) {
+  //     logger.log('Getting guild specific settings');
+  //     settings = getFromCache(id) || await Guild.findByPk(id, options);
+  //   }
+  //   if (!guild || !settings) {
+  //     logger.log('Getting default settings');
+  //     settings = getFromCache('default') || await Guild.findByPk('default', options);
+  //   }
+  //   return settings;
+  // },
+  getSettings: async () => global.cache.guilds.get('default') || defaultSettings,
   // Grab a single reply with 1 minute timeout
   awaitReply: async (message, prompt, limit = 60000) => {
     const filter = msg => msg.author.id === message.author.id;

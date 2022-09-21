@@ -60,10 +60,17 @@ const deleteGuild = async (guildId) => {
 // Precheck to find or create guild member in the join table
 const ensureGuildMember = async (guildId, userId) => {
   try {
+    const memberId = guildId + userId;
+    const existing = global.cache.guildMembers.get(memberId);
+    if (existing) {
+      logger.log('Found member in cache');
+      return existing;
+    }
     await ensureGuild(guildId);
     await ensureUser(userId);
-    const [member, created] = await GuildMember.findOrCreate({ where: { guildId: guildId, userId: userId } })
+    const [member, created] = await GuildMember.findOrCreate({ where: { guildId: guildId, userId: userId }, raw: true, nest: true })
     if (!member) throw new Error('Operation failed');
+    global.cache.guildMembers.set(memberId, member)
     logCreated(created, 'GuildMember');
     return (member);
   } catch (err) {
@@ -85,7 +92,6 @@ const deleteGuildMember = async (guildId, userId) => {
 // Update guild member data for betting feature
 const payoutBet = async (guildId, [winners = [], losers = []]) => {
   try {
-    const guild = await GuildMember.findAll()
     winners.length && GuildMember.increment('betWins', {
       by: 1,
       where: {
