@@ -1,23 +1,20 @@
-// Bot API
-const botApiUrl = 'http://rosiebot-env.eba-ic3gbqjz.us-east-1.elasticbeanstalk.com/stats';
-
 // Shorthand function for query selector
 const $ = (sel) => document.querySelector(sel);
 
 // On document ready
 const init = async () => {
   // Display bot stats on page
-  try {
-    const apiResponse = await fetch(botApiUrl);
-    if (apiResponse.ok) {
-      const botStats = await apiResponse.json();
-      $('#bot-status').dataset.status = 'online';
-      $('#bot-users').textContent = botStats.users;
-      $('#bot-servers').textContent = botStats.servers;
-    } else $('#bot-status').dataset.status = 'offline';
-  } catch (err) {
-    $('#bot-status').dataset.status = 'offline';
-  }
+  // try {
+  //   const apiResponse = await fetch(botApiUrl);
+  //   if (apiResponse.ok) {
+  //     const botStats = await apiResponse.json();
+  //     $('#bot-status').dataset.status = 'online';
+  //     $('#bot-users').textContent = botStats.users;
+  //     $('#bot-servers').textContent = botStats.servers;
+  //   } else $('#bot-status').dataset.status = 'offline';
+  // } catch (err) {
+  //   $('#bot-status').dataset.status = 'offline';
+  // }
 
   // Load command data
   const response = await fetch('./commands.json');

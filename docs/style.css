@@ -79,6 +79,10 @@ body {
 }
 
 /* About section */
+.bot-stats {
+  display: none;
+}
+
 #bot-status[data-status="pending"]::after {
   color: gray;
   content: "🔃Pending";
