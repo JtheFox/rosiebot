@@ -4,8 +4,7 @@ const api = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data
 module.exports = {
   getAllChampions: async () => {
     const res = await axios.get(api + 'champion-summary.json');
-    console.log(res.data);
-    return Object.values(res.data);
+    return Object.values(res.data.slice(1));
   },
   getAllItems: async () => {
     const res = await axios.get(api + 'items.json');
